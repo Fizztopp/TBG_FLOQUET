@@ -44,6 +44,7 @@
 #include <algorithm>
 
 
+
 // PARAMETERS ##########################################################
 
 // intrinsic parameters
@@ -84,7 +85,7 @@
 
 // CALCULATION OPTIONS #################################################
 
-#ifndef NO_MPI                                                          //REMEMBER: Each Process has its own copy of all allocated memory! --> node                                             
+#ifndef NO_MPI                                                          //REMEMBER: Each Process has its own copy of all allocated memory! --> node
     #include <mpi.h>
 #endif
 
@@ -100,19 +101,13 @@ typedef complex<double> cdouble;                  						// typedef existing_type
 typedef vector<double> dvec;                     					    // vectors with real double values
 typedef vector<cdouble> cvec;                     						// vectors with complex double values
 
-cdouble II(0,1);
+#define MKL_Complex16 cdouble
+#include "mkl.h"
 
+cdouble II(0,1);
 
 // DEFINITION OF FUNCTIONS #############################################
 
-//LAPACK (Fortran 90) functions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-//routine to find eigensystem of Hk
-extern "C" {
-/** 
- *  Computes the eigenvalues and, optionally, the eigenvectors for a Hermitian matrices H
- */
-    void zheev_(char* jobz, char* uplo, int* N, cdouble* H, int* LDA, double* W, cdouble* work, int* lwork, double* rwork, int *info);
-}
 //'N','V':  Compute eigenvalues only, and eigenvectors
 char    jobz = 'V';       
 //'U','L':  Upper, Lower triangle of H is stored 
@@ -129,7 +124,6 @@ double  rwork[3*NATOM-2];
 cdouble work[2*NATOM-1];  
 // Info
 int	    info;
-
 
 void diagonalize(cvec &Hk, dvec &evals)
 {
@@ -172,14 +166,7 @@ void diagonalize_F(cvec &Hk_FLOQUET, dvec &evals_FLOQUET)
 	assert(!info);
 }
 
-
-extern "C" {
-/**
- *  Computes the eigenvalues and, optionally, the left and/or right eigenvectors for GE (non Hermitian) matrix --> used in FloquetEVs
- */ void zgeev_(char* JOBVL, char* JOBVR, int* N, cdouble* A, int* LDA, cdouble* W, cdouble* VL, int* LDVL, cdouble* VR, int* LDVR, cdouble* work, int* lwork, double* rwork, int *info);
-}
-
-char JOBVL = 'N';                                                       // don't compute left eigenvectors!  
+char JOBVL = 'N';                                                       // don't compute left eigenvectors!
 char JOBVR = 'V';                                                       // compute right eigenvectors! 
 int LDVL = NATOM;
 int LDVR = NATOM; 
