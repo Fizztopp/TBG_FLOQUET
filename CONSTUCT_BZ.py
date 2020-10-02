@@ -201,24 +201,24 @@ def k_path():
     '''
     Calculates high symmetry path points and saves as k_path.dat   
     '''
-    K_PATH = np.zeros(3)+(K-GAMMA)*0.95
-    for GK in range(num_GK):
-        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(K-GAMMA)*0.05)
-    for KKs in range(num_KM):
-        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0*0.05)    
-    K_PATH = np.append(K_PATH, K_PATH[-3:]+(MM-K)*2.0*0.90) 
-    for KKs in range(num_KM):
-        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0*0.05) 
-    for GK in range(num_GK):
-        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(GAMMA-Kp)*0.05)      
+#    K_PATH = np.zeros(3)+(K-GAMMA)*0.95
+#    for GK in range(num_GK):
+#        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(K-GAMMA)*0.05)
+#    for KKs in range(num_KM):
+#        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0*0.05)    
+#    K_PATH = np.append(K_PATH, K_PATH[-3:]+(MM-K)*2.0*0.90) 
+#    for KKs in range(num_KM):
+#        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0*0.05) 
+#    for GK in range(num_GK):
+#        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(GAMMA-Kp)*0.05)      
 #==============================================================================
-#     K_PATH = np.array([0.,0.,0.])
-#     for GK in range(num_GK):
-#         K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(K-GAMMA))
-#     for KKs in range(num_KM):
-#         K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0)    
-#     for KsG in range(num_GK-1):
-#         K_PATH = np.append(K_PATH, K_PATH[-3:]+1/num_GK*(GAMMA-(K+2.*(MM-K))))    
+    K_PATH = np.array([0.,0.,0.])
+    for GK in range(num_GK):
+        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(K-GAMMA))
+    for KKs in range(num_KM):
+        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0)    
+    for KsG in range(num_GK-1):
+        K_PATH = np.append(K_PATH, K_PATH[-3:]+1/num_GK*(GAMMA-(K+2.*(MM-K))))    
 #==============================================================================    
     K_PATH = K_PATH.reshape(int(np.size(K_PATH)/3),3)                # Array of k-vectors of shape (6*K_num+1, 3) 
     num_kpoints = np.size(K_PATH[:,0])
