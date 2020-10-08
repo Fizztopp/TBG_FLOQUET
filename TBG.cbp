@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="TBG"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="icc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TBG.out">
+				<Option output="/home/chris/academics/PhD/codebase/TBG_FLOQUET/TBG.out" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="icc"/>
+				<Compiler>
+					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
+					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/./include"/>
+					<Add directory="/home/chris/intel/compilers_and_libraries_2020.1.217/linux/mpi/intel64/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 TBG.out"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="TBG.out/fast">
+				<Option output="/home/chris/academics/PhD/codebase/TBG_FLOQUET/TBG.out" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="icc"/>
+				<Compiler>
+					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
+					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/./include"/>
+					<Add directory="/home/chris/intel/compilers_and_libraries_2020.1.217/linux/mpi/intel64/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 TBG.out/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/Constants.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/Diagonalization.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/EqBerryCurvature.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/FileHandling.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/FloquetBerryCurvature.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/Hk.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/Hk0.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/InlineFunctions.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/MatrixMultiplication.h">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/Diagonalization.cpp">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/EqBerryCurvature.cpp">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/FileHandling.cpp">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/FloquetBerryCurvature.cpp">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/Hk.cpp">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/Hk0.cpp">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/TBG.cpp">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -8,7 +8,7 @@
 #include "InlineFunctions.h"
 #include "Diagonalization.h"
 
-void set_Hk0(dvec &kvec, cvec &Hk, const dvec &lvec, vector<dvec> &UNIT_CELL)
+void set_Hk0(const dvec &kvec, cvec &Hk, const dvec &lvec, const vector<dvec> &UNIT_CELL)
 /**
  * 	Set eq. Hamiltonian (without external field)
  *  -kvec: Real vector of the reciprocal space
@@ -320,7 +320,7 @@ void set_dH0dky(dvec &kvec, cvec &Hk, const dvec &lvec, vector<dvec> &UNIT_CELL)
 #endif
 }
 
-void Hk_bands(dvec &BANDS, cvec &Hk, dvec &evals, vector<dvec> &K_PATH, vector<dvec> &UNIT_CELL, const dvec &lvec, const string& filename, int &numprocs, int &myrank)
+void Hk_bands(dvec &BANDS, cvec &Hk, dvec &evals, const vector<dvec> &K_PATH, const vector<dvec> &UNIT_CELL, const dvec &lvec, const string &filename, const int &numprocs, const int &myrank)
 /**
  *	Calculate bands of Hk0(k) for path K_PATH through BZ
  *  -BANDS: Vector to store eigenvalues of all k-points

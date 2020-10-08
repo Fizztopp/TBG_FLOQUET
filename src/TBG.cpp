@@ -25,8 +25,8 @@
  *  -Berry curvature of Floquet states
  * 
  *  Necessary input:
- *  -Unit_Cell.dat: contains atomic positions, and sublattice index
- *  -k_path.dat: list of k-points along high symmetry path
+ *  -Data/Unit_Cell.dat: contains atomic positions, and sublattice index
+ *  -Data/k_path.dat: list of k-points along high symmetry path
  *  -k_BZ: List of k-points of Brilluoin zone (for reduce also weights are necessary!)  
  */
 #include <iostream>
@@ -72,7 +72,6 @@ int main(int argc, char * argv[])
     
 	cout << "Process " << myrank << " on " << processor_name << " out of " << numprocs << " says hello." << endl;
 	MPI_Barrier(MPI_COMM_WORLD);
-    
 #endif
 	if(myrank==0) cout << "\n\tProgram running on " << numprocs << " processors." << endl;
 
@@ -113,8 +112,8 @@ int main(int argc, char * argv[])
 	
 	//Read in atomic positions
 	vector<dvec> UNIT_CELL;
-	ReadIn(UNIT_CELL, "Unit_Cell.dat");
-	if(myrank==0) cout << "Unit_Cell.dat --> " <<  UNIT_CELL.size() << " points" << endl;
+	ReadIn(UNIT_CELL, "Data/Unit_Cell.dat");
+	if(myrank==0) cout << "Data/Unit_Cell.dat --> " <<  UNIT_CELL.size() << " points" << endl;
 	if(NATOM != UNIT_CELL.size())
 	{
 		cout << "WRONG ATOMNUMBER!!! ---------------------------------------------------------------------------------------------" << endl;
@@ -123,29 +122,29 @@ int main(int argc, char * argv[])
 	
 	//Read in vector of k-points
 	vector<dvec> K_PATH;
-	ReadIn(K_PATH, "k_path.dat");
+	ReadIn(K_PATH, "Data/k_path.dat");
 	if(myrank==0) cout << "high-symmetry path --> " << K_PATH.size() << " points" << endl;
 	int num_kpoints_PATH = K_PATH.size();
 	
 	// irr. BZ
 	//vector of weights
 	vector<dvec> kweights_irr;
-	ReadIn(kweights_irr, "k_weights_irr.dat");
+	ReadIn(kweights_irr, "Data/k_weights_irr.dat");
 			
 	//vector of BZ vectors
 	vector<dvec> BZ_IRR;
-	ReadIn(BZ_IRR, "k_BZ_irr.dat");
+	ReadIn(BZ_IRR, "Data/k_BZ_irr.dat");
 	if(myrank==0) cout << "irreducible BZ --> " << BZ_IRR.size() << " points" << endl;
 	int num_kpoints_BZ = BZ_IRR.size();
 	
     // full BZ
 	//vector of weights
 	vector<dvec> kweights_full;
-	ReadIn(kweights_full, "k_weights_full.dat");
+	ReadIn(kweights_full, "Data/k_weights_full.dat");
 			
 	//vector of BZ vectors
 	vector<dvec> BZ_FULL;
-	ReadIn(BZ_FULL, "k_BZ_full.dat");
+	ReadIn(BZ_FULL, "Data/k_BZ_full.dat");
 	if(myrank==0) cout << "full BZ --> " << BZ_FULL.size() << " points" << endl;
 	int num_kpoints_BZ_full = BZ_FULL.size();
 	
@@ -185,7 +184,7 @@ int main(int argc, char * argv[])
 //	groundstate(Hk[0], evals, kweights_full, BZ_FULL, UNIT_CELL, lvec, mu, numprocs, myrank);
 
 	if(myrank==0){cout << "Start caluclation of equilibrium bands" << endl;}
-	Hk_bands(BANDS, Hk[0], evals, K_PATH, UNIT_CELL, lvec, "bands.dat", numprocs, myrank);
+	Hk_bands(BANDS, Hk[0], evals, K_PATH, UNIT_CELL, lvec, "Data/bands.dat", numprocs, myrank);
 
 //	if(myrank==0){cout << "Start caluclation of equilibrium Berry curvature along k-path" << endl;}
 //	EQ_BC_LOOP_PATH(-1e-5, +1e-5, 2, Hk[0], lvec, UNIT_CELL, K_PATH, evals, bands_BCs, numprocs, myrank);

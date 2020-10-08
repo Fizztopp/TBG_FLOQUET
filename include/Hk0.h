@@ -8,7 +8,7 @@
  *  -lvec: Real vector[4] of superlattice bravis translational vectors (in lconst*Angstroem)
  *  -UNIT_CELL: Vector[NATOM] of real vectors[4] containing atomic positions and sublattice info
  */
-void set_Hk0(dvec &kvec, cvec &Hk, const dvec &lvec, vector<dvec> &UNIT_CELL);
+void set_Hk0(const dvec &kvec, cvec &Hk, const dvec &lvec, const vector<dvec> &UNIT_CELL);
 
 /**
  * 	Set derivative along kx of electronic eq. Hamiltonian without Peierls field
@@ -40,7 +40,7 @@ void set_dH0dky(dvec &kvec, cvec &Hk, const dvec &lvec, vector<dvec> &UNIT_CELL)
  *	-numprocs: Total number of processes (MPI)
  *	-myrank: Rank of process (MPI)
  */
-void Hk_bands(dvec &BANDS, cvec &Hk, dvec &evals, vector<dvec> &K_PATH, vector<dvec> &UNIT_CELL, const dvec &lvec, const string& filename, int &numprocs, int &myrank);
+void Hk_bands(dvec &BANDS, cvec &Hk, dvec &evals, const vector<dvec> &K_PATH, const vector<dvec> &UNIT_CELL, const dvec &lvec, const string& filename, const int &numprocs, const int &myrank);
 
 void groundstate(cvec &Hk, dvec &evals, vector<dvec> &kweights, vector<dvec> &BZ_IRR, vector<dvec> &UNIT_CELL, const dvec &lvec, double &mu, int &numprocs, int &myrank);
 /**
