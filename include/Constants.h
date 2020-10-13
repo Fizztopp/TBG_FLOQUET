@@ -2,6 +2,7 @@
 #define TBG_FLOQUET_CONSTANTS_H
 
 #include <complex>
+#include <cmath>
 
 // intrinsic parameters
 // electronic
@@ -50,5 +51,12 @@ typedef vector<cdouble> cvec;                     						// vectors with complex 
 #define MKL_Complex16 cdouble
 
 constexpr cdouble II(0,1);
+
+namespace cavityConstants{
+
+    constexpr double g(0.05);
+    const std::vector<double> eA{1./sqrt(2.), 1./sqrt(2.), 0.0};
+}
+
 
 #endif //TBG_FLOQUET_CONSTANTS_H

@@ -95,6 +95,9 @@
 		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/Hk0.h">
 			<Option target="TBG.out"/>
 		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/HkA.h">
+			<Option target="TBG.out"/>
+		</Unit>
 		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/include/InlineFunctions.h">
 			<Option target="TBG.out"/>
 		</Unit>
@@ -117,6 +120,9 @@
 			<Option target="TBG.out"/>
 		</Unit>
 		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/Hk0.cpp">
+			<Option target="TBG.out"/>
+		</Unit>
+		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/HkA.cpp">
 			<Option target="TBG.out"/>
 		</Unit>
 		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/TBG.cpp">

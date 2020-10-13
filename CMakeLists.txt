@@ -18,6 +18,7 @@ set(project_sources
 		src/FloquetBerryCurvature.cpp
 		src/FileHandling.cpp
 		src/Hk.cpp
+		src/HkA.cpp
         )
 
 set(header_files
@@ -30,6 +31,7 @@ set(header_files
 		include/FloquetBerryCurvature.h
 		include/FileHandling.h
 		include/Hk.h
+		include/HkA.h
 		)
 
 include_directories("./include")
