@@ -33,6 +33,7 @@
 #include <vector>
 #include <cmath>
 #include <string>
+#include <cassert>
 
 // PARAMETERS ##########################################################
 #include "Constants.h"
@@ -86,12 +87,7 @@ int main(int argc, char *argv[]) {
     const int a = SC + 1;
     const int b = SC;
 
-    if (NATOM != 4 * (SC * SC + (SC + 1) * SC + (SC + 1) * (SC + 1))) {
-        cout
-                << "WRONG ATOMNUMBER!!! ---------------------------------------------------------------------------------------------"
-                << endl;
-        return 0;
-    }
+    assert(NATOM == 4 * (SC * SC + (SC + 1) * SC + (SC + 1) * (SC + 1)));
 
     // 1st angle
     const double angle1 = atan2(double(b) * sqrt(3.) / 2., double(a) + double(b) / 2.);

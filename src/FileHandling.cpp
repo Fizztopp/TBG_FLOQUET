@@ -2,7 +2,6 @@
 #include <vector>
 #include <fstream>
 #include <iterator>
-#include <sstream>
 
 #include "Constants.h"
 
