@@ -29,7 +29,7 @@ Nmesh = 40
 num_GK = 32                                                                    # number of k-point per hgh symmetry line
 num_KM = 31                                                                    # number of k-point per hgh symmetry line                                                                # interlayer distance
 
-file = open('parameters.dat','w')
+file = open('Data/parameters.dat','w')
 file.write("%s " % num_GK)
 file.write("\n") 
 file.write("%s " % num_KM)   
@@ -114,7 +114,7 @@ for i in range(pp,nn):
     sli=MAT_CELL[i-pp,3] #sublattice index
     MAT_CELL[i,:] = np.array([ax,ay,az,sli]) 
     
-file = open('Unit_Cell.dat','w')
+file = open('Data/Unit_Cell.dat','w')
 for i in range(nn):
     for j in range(4):
         file.write("%s " % MAT_CELL[i][j])
@@ -201,29 +201,29 @@ def k_path():
     '''
     Calculates high symmetry path points and saves as k_path.dat   
     '''
-    K_PATH = np.zeros(3)+(K-GAMMA)*0.95
-    for GK in range(num_GK):
-        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(K-GAMMA)*0.05)
-    for KKs in range(num_KM):
-        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0*0.05)    
-    K_PATH = np.append(K_PATH, K_PATH[-3:]+(MM-K)*2.0*0.90) 
-    for KKs in range(num_KM):
-        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0*0.05) 
-    for GK in range(num_GK):
-        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(GAMMA-Kp)*0.05)      
+#    K_PATH = np.zeros(3)+(K-GAMMA)*0.95
+#    for GK in range(num_GK):
+#        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(K-GAMMA)*0.05)
+#    for KKs in range(num_KM):
+#        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0*0.05)    
+#    K_PATH = np.append(K_PATH, K_PATH[-3:]+(MM-K)*2.0*0.90) 
+#    for KKs in range(num_KM):
+#        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0*0.05) 
+#    for GK in range(num_GK):
+#        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(GAMMA-Kp)*0.05)      
 #==============================================================================
-#     K_PATH = np.array([0.,0.,0.])
-#     for GK in range(num_GK):
-#         K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(K-GAMMA))
-#     for KKs in range(num_KM):
-#         K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0)    
-#     for KsG in range(num_GK-1):
-#         K_PATH = np.append(K_PATH, K_PATH[-3:]+1/num_GK*(GAMMA-(K+2.*(MM-K))))    
+    K_PATH = np.array([0.,0.,0.])
+    for GK in range(num_GK):
+        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_GK*(K-GAMMA))
+    for KKs in range(num_KM):
+        K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0)    
+    for KsG in range(num_GK-1):
+        K_PATH = np.append(K_PATH, K_PATH[-3:]+1/num_GK*(GAMMA-(K+2.*(MM-K))))    
 #==============================================================================    
     K_PATH = K_PATH.reshape(int(np.size(K_PATH)/3),3)                # Array of k-vectors of shape (6*K_num+1, 3) 
     num_kpoints = np.size(K_PATH[:,0])
     print("Number of kpoints: " + str(num_kpoints) + " (path)")
-    file = open('k_path.dat','w')
+    file = open('Data/k_path.dat','w')
     for i in range(num_kpoints):
         K_PATH[i][:] = np.dot(rot,K_PATH[i][:])
         for j in range(3):
@@ -274,27 +274,27 @@ def k_irr_BZ():
         MAT_BZ_full[k,:] = B1*MAT_BZ_full[k,0] + B2*MAT_BZ_full[k,1] + B3*MAT_BZ_full[k,2]
     print("Number of kpoints: %d (full BZ)" % np.size(MAT_BZ_full[:,0]))
     
-    file = open('k_BZ_irr.dat','w')
+    file = open('Data/k_BZ_irr.dat','w')
     for i in range(num_kpoints):
         for j in range(3):
             file.write("%s " % (MAT_irr_BZ[i][j]/lconst))
         file.write("\n")    
     file.close()
     
-    file = open('k_weights_irr.dat','w')
+    file = open('Data/k_weights_irr.dat','w')
     for i in range(num_kpoints):
         file.write("%s " % (weights[i]*1.0))
         file.write("\n")    
     file.close()
     
-    file = open('k_BZ_full.dat','w')
+    file = open('Data/k_BZ_full.dat','w')
     for i in range(np.size(MAT_BZ_full[:,0])):
         for j in range(3):
             file.write("%s " % (MAT_BZ_full[i][j]/(lconst)))
         file.write("\n")    
     file.close()
     
-    file = open('k_weights_full.dat','w')
+    file = open('Data/k_weights_full.dat','w')
     for i in range(np.size(MAT_BZ_full[:,0])):
         file.write("%s " % 1.0)
         file.write("\n")    
