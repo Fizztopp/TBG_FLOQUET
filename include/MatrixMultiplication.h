@@ -1,6 +1,8 @@
 #ifndef TBG_MATRIXMULTIPLICATION_H
 #define TBG_MATRIXMULTIPLICATION_H
 
+#include "InlineFunctions.h"
+
 template <class Vec>
 void times(const Vec &A, const Vec &B, Vec &C)
 /**
