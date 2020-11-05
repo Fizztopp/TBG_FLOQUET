@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "InlineFunctions.h"
 #include "Diagonalization.h"
+#include "mkl.h"
 
 void set_HkA(std::vector<std::complex<double>> &HkA,
              const std::vector<double> &kvec,
@@ -123,6 +124,44 @@ void set_HkA(std::vector<std::complex<double>> &HkA,
         }
 #endif
     }
+}
+
+std::vector<std::complex<double>> HkAInGivenBasis(const std::vector<std::complex<double>>& basisVectors,
+                                                  const std::vector<double> &kvec,
+                                                  const std::vector<double> &lvec,
+                                                  const std::vector<std::vector<double>> &UNIT_CELL){
+/**
+ * Calculates linear light-coupled hamiltonian in a given basis
+ *
+ * basisVectors is a matrix of vectors which define the basis in which HkA should be represented
+ * kvec defines the k-vector for which HkA should be calcualted
+ * lvec are the real super-lattice vectors
+ * UNIT_CELL contains the atomic positions in the unit-cell
+ */
+
+    const int N = NATOM;
+
+    std::vector<std::complex<double>> HkA(N * N, std::complex<double>(0.0, 0.0));
+
+    set_HkA(HkA, kvec, lvec, UNIT_CELL, cavityConstants::g, cavityConstants::eA);
+
+    std::vector<std::complex<double>> TEMP1(N * N, std::complex<double>(0.0, 0.0));
+    std::vector<std::complex<double>> TEMP2(N * N, std::complex<double>(0.0, 0.0));
+
+    const double alpha = 1.0;
+    const double beta = 0.0;
+    cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasConjTrans,
+                N, N, N, &alpha,
+                &HkA[0], N,
+                &basisVectors[0], N,
+                &beta, &TEMP1[0], N);
+    cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans,
+                N, N, N, &alpha,
+                &basisVectors[0], N,
+                &TEMP1[0], N,
+                &beta, &TEMP2[0], N);
+
+    return HkA;
 }
 
 std::vector<double> calcLinABands(const std::vector<std::vector<double>> &firstBZ,

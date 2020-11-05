@@ -3,10 +3,12 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
+#include <cassert>
 
 #include "Constants.h"
 #include "InlineFunctions.h"
 #include "Diagonalization.h"
+#include "mkl.h"
 
 void set_Hk0(const dvec &kvec, cvec &Hk, const dvec &lvec, const vector<dvec> &UNIT_CELL)
 /**
@@ -319,6 +321,41 @@ void set_dH0dky(dvec &kvec, cvec &Hk, const dvec &lvec, vector<dvec> &UNIT_CELL)
     }
 #endif
 }
+
+/**
+ * Calculates diagonal of Hk0 in diagonal basis
+ * Basis is written into first argument
+ * @param eVecs Array later to hold basis vectors - must be size NATOM*NATOM
+ * @param kvec k-vector for which Hk0 should be calculated and diagonalized
+ * @param lvec real super-lattice vectors
+ * @param UNIT_CELL positions of atoms in unit-cell
+ * @return the diagonal of Hk0 as a 1D vector
+ */
+std::vector<double> Hk0DiagonalWithBasis(cvec &eVecs,
+                                         const dvec &kvec,
+                                         const dvec &lvec,
+                                         const vector<dvec> &UNIT_CELL){
+
+    const int N = NATOM;
+
+    std::vector<double> evalsHk0(N, 0.0);
+
+    set_Hk0(kvec, eVecs, lvec, UNIT_CELL);
+
+    const char JOBZ('V');
+    const char UPLO('U');
+    const int W = 2ul * N;
+    int info = 0;
+    std::vector<std::complex<double>> WORK(2 * N, std::complex<double>(0.0, 0.0));
+    std::vector<double> RWORK(3 * N - 2, 0.0);
+
+    zheev(&JOBZ, &UPLO, &N, &eVecs[0], &N, &evalsHk0[0], &WORK[0], &W, &RWORK[0], &info);
+    assert(info == 0);
+
+    return evalsHk0;
+}
+
+
 
 void Hk_bands(dvec &BANDS, cvec &Hk, dvec &evals, const vector<dvec> &K_PATH, const vector<dvec> &UNIT_CELL, const dvec &lvec, const string &filename, const int &numprocs, const int &myrank)
 /**

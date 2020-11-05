@@ -7,10 +7,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_COMPILER "icpc")
 set(CMAKE_C_COMPILER "icc")
 
-#set as inlcude dir the current directory
+enable_language(CXX)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 enable_testing()
+
+find_package(HDF5 REQUIRED COMPONENTS CXX)
 
 set(project_sources
         src/TBG.cpp
@@ -39,6 +42,7 @@ set(header_files
 include_directories("./include")
 #include MKL
 include_directories("/home/chris/intel/compilers_and_libraries_2020.1.217/linux/mpi/intel64/include")
+include_directories(${HDF5_INCLUDE_DIRS})
 
 #add compiler flags
 set(C_flags "-Ofast -Wall -Wextra -pedantic -mkl -qopenmp -D 'NO_MPI'")
@@ -48,5 +52,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${C_flags}")
 project(TBG)
 #add an executable - using variables
 add_executable(${PROJECT_NAME}.out ${project_sources} ${header_files})
+
+target_link_libraries(${PROJECT_NAME}.out ${HDF5_LIBRARIES})
 
 add_subdirectory(test)

@@ -10,6 +10,22 @@
  */
 void set_Hk0(const dvec &kvec, cvec &Hk, const dvec &lvec, const vector<dvec> &UNIT_CELL);
 
+
+/**
+ * Calculates diagonal of Hk0 in diagonal basis
+ * Basis is written into first argument
+ * @param eVecs Array later to hold basis vectors - must be size NATOM*NATOM
+ * @param kvec k-vector for which Hk0 should be calculated and diagonalized
+ * @param lvec real super-lattice vectors
+ * @param UNIT_CELL positions of atoms in unit-cell
+ * @return the diagonal of Hk0 as a 1D vector
+ */
+std::vector<double> Hk0DiagonalWithBasis(cvec &eVecs,
+                                         const dvec &kvec,
+                                         const dvec &lvec,
+                                         const vector<dvec> &UNIT_CELL);
+
+
 /**
  * 	Set derivative along kx of electronic eq. Hamiltonian without Peierls field
  *  -kvec: Real vector of the reciprocal space

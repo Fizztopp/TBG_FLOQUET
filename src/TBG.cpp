@@ -57,6 +57,7 @@
 #include "FileHandling.h"
 #include "Hk.h"
 #include "HkA.h"
+#include "mkl.h"
 
 
 int main(int argc, char *argv[]) {
@@ -145,47 +146,20 @@ int main(int argc, char *argv[]) {
     if (myrank == 0) cout << "full BZ --> " << BZ_FULL.size() << " points" << endl;
     int num_kpoints_BZ_full = BZ_FULL.size();
 
-    // vector for eigenvalues
-    dvec evals(NATOM);
-    cvec evals_c(NATOM);
-
-    // bands
-    dvec BANDS(num_kpoints_PATH * NATOM);
-
-    // vector for Hamiltonian Hk
-    cvec *Hk = new cvec(NATOM * NATOM);
-
-    // Berry Curvature
-    dvec bands_BCs(NATOM);
-    dvec bands_BCs_FLOQUET(NATOM * (2 * m_max + 1));
-
-    // vector to store Floquet matrix
-    cvec *Hk_FLOQUET = new cvec((2 * m_max + 1) * (2 * n_max + 1) * NATOM * NATOM);
-
-    // vector for eigenvalues
-    dvec *evals_FLOQUET = new dvec(NATOM * (2 * n_max + 1));
-
-    // bands
-    dvec *BANDS_FLOQUET = new dvec(num_kpoints_PATH * NATOM * (2 * n_max + 1));
-    dvec *OVERLAP_FLOQUET = new dvec(num_kpoints_PATH * NATOM * (2 * n_max + 1));
-
-    // CALCULATIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
     const clock_t begin_time = clock();                                 // time summed over all threads
 #ifndef NO_OMP
     double dtime = omp_get_wtime();                                        // time per core
 #endif
 
-//	if(myrank==0){cout << "Start caluclation of chemical potential" << endl;}
-//	groundstate(Hk[0], evals, kweights_full, BZ_FULL, UNIT_CELL, lvec, mu, numprocs, myrank);
+    const std::vector<double> kVec1{PI / 3., PI / 3., 0.0};
 
-    if (myrank == 0) { cout << "Start caluclation of equilibrium bands" << endl; }
-    Hk_bands(BANDS, Hk[0], evals, K_PATH, UNIT_CELL, lvec, "Data/bands.dat", numprocs, myrank);
+    std::vector<std::complex<double>> basisVectors(NATOM * NATOM, std::complex<double>(0.0, 0.0));
 
-    if (myrank == 0) { std::cout << "Calculate bands with linear light coupling" << std::endl; }
-    std::vector<double> bandsLinA(NATOM * BZ_IRR.size());
-    bandsLinA = calcLinABands(BZ_IRR, UNIT_CELL, lvec);
+    std::vector<double> eValsHk0 = Hk0DiagonalWithBasis(basisVectors, kVec1, lvec, UNIT_CELL);
+    std::vector<std::complex<double>> HkAinHk0Basis = HkAInGivenBasis(basisVectors, kVec1, lvec, UNIT_CELL);
 
+    writeReal1DArrayToHdf5(eValsHk0, "Data/eValsHk0.hdf5");
+    writeComplex2DArrayToHdf5(HkAinHk0Basis, "Data/HkAinHk0Basis.hdf5", NATOM, NATOM);
 
     if (myrank == 0) {
         cout << "Total caluclation time (MPI): " << float(clock() - begin_time) / CLOCKS_PER_SEC << " seconds" << endl;
@@ -198,13 +172,6 @@ int main(int argc, char *argv[]) {
 #ifndef NO_MPI
     MPI_Finalize();
 #endif
-
-// free memory	
-    delete Hk;
-    delete Hk_FLOQUET;
-    delete evals_FLOQUET;
-    delete BANDS_FLOQUET;
-    delete OVERLAP_FLOQUET;
 }
 
 
