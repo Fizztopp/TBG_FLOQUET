@@ -26,8 +26,8 @@ mpl.rcParams['figure.figsize'] = [10.,10]
 
 #### CONSTRUCT SUPER CELL ##############################################################################################################
 Nmesh = 40                                                                        
-num_GK = 32                                                                    # number of k-point per hgh symmetry line
-num_KM = 31                                                                    # number of k-point per hgh symmetry line                                                                # interlayer distance
+num_GK = 64#32                                                                    # number of k-point per hgh symmetry line
+num_KM = 63#31                                                                    # number of k-point per hgh symmetry line                                                                # interlayer distance
 
 file = open('Data/parameters.dat','w')
 file.write("%s " % num_GK)
@@ -35,7 +35,7 @@ file.write("\n")
 file.write("%s " % num_KM)   
 file.close()
 
-ii = 4                                                                        # cell index
+ii = 4                                                                      # cell index
 nn = 4*(ii**2+(ii+1)*ii+(ii+1)**2)                                             # number of atoms
 lconst = 2.445                                                                 # lattice constant
 dis = 3.364   
@@ -219,8 +219,9 @@ def k_path():
         K_PATH = np.append(K_PATH, K_PATH[-3:]+1./num_KM*(MM-K)*2.0)    
     for KsG in range(num_GK-1):
         K_PATH = np.append(K_PATH, K_PATH[-3:]+1/num_GK*(GAMMA-(K+2.*(MM-K))))    
-#==============================================================================    
-    K_PATH = K_PATH.reshape(int(np.size(K_PATH)/3),3)                # Array of k-vectors of shape (6*K_num+1, 3) 
+#==============================================================================
+    K_PATH = K_PATH.reshape(int(np.size(K_PATH)/3),3) # Array of k-vectors of shape (6*K_num+1, 3)
+#    K_PATH = K_PATH[94:100, :]
     num_kpoints = np.size(K_PATH[:,0])
     print("Number of kpoints: " + str(num_kpoints) + " (path)")
     file = open('Data/k_path.dat','w')

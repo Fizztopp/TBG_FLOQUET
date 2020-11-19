@@ -82,12 +82,59 @@ TEST(LinATest, diagonalizationOfHk0) {
         EXPECT_NEAR(TEMP2[fq(i, i, NATOM)].imag(), 0.0, 1e-12);
     }
     //... and that matrix is indeed diagonal
-    for(int i = 0; i < N; ++i){
-        for(int j = 0; j < N; ++j){
-            if(i !=j) {
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            if (i != j) {
                 EXPECT_NEAR(TEMP2[fq(i, j, N)].real(), 0.0, 1e-12);
                 EXPECT_NEAR(TEMP2[fq(i, j, N)].imag(), 0.0, 1e-12);
             }
         }
+    }
+}
+
+TEST(LinATest, Hk0EqualsHkAExpCouplingForGEq0) {
+
+    std::vector<double> lvec(4ul, 0.0);
+    std::vector<std::vector<double>> UNIT_CELL;
+
+    testInitialization(lvec, UNIT_CELL);
+
+    std::vector<std::complex<double>> Hk0(NATOM * NATOM, std::complex<double>(0.0, 0.0));
+    std::vector<std::complex<double>> HkA(NATOM * NATOM, std::complex<double>(0.0, 0.0));
+
+    const std::vector<double> kVec1{PI / 17., PI / 7., 0.0};
+
+    set_Hk0(kVec1, Hk0, lvec, UNIT_CELL);
+    set_HkExpCoupling(HkA, kVec1, lvec, UNIT_CELL, 0.0, cavityConstants::eA);
+
+    for (auto k = 0ul; k < Hk0.size(); ++k) {
+        EXPECT_NEAR(Hk0[k].real(), HkA[k].real(), 1e-15);
+        EXPECT_NEAR(Hk0[k].imag(), HkA[k].imag(), 1e-15);
+    }
+}
+
+
+TEST(LinATest, HkAEquals0ForGEq0) {
+
+    std::vector<double> lvec(4ul, 0.0);
+    std::vector<std::vector<double>> UNIT_CELL;
+
+    testInitialization(lvec, UNIT_CELL);
+
+    std::vector<std::complex<double>> Hk0(NATOM * NATOM, std::complex<double>(0.0, 0.0));
+    std::vector<std::complex<double>> HkA(NATOM * NATOM, std::complex<double>(0.0, 0.0));
+    std::vector<std::complex<double>> HkAA(NATOM * NATOM, std::complex<double>(0.0, 0.0));
+
+    const std::vector<double> kVec1{PI / 17., PI / 7., 0.0};
+
+    set_Hk0(kVec1, Hk0, lvec, UNIT_CELL);
+    set_HkA(HkA, kVec1, lvec, UNIT_CELL, 0.0, cavityConstants::eA);
+    set_HkAA(HkAA, kVec1, lvec, UNIT_CELL, 0.0, cavityConstants::eA);
+
+    for (auto k = 0ul; k < Hk0.size(); ++k) {
+        EXPECT_NEAR(HkA[k].real(), 0.0, 1e-15);
+        EXPECT_NEAR(HkA[k].imag(), 0.0, 1e-15);
+        EXPECT_NEAR(HkAA[k].real(), 0.0, 1e-15);
+        EXPECT_NEAR(HkAA[k].imag(), 0.0, 1e-15);
     }
 }

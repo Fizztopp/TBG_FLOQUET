@@ -43,6 +43,26 @@ void writeComplex2DArrayToHdf5(const vector<std::complex<double>> data,
                                const unsigned long dimension1,
                                const unsigned long dimension2);
 
+/**
+ *
+ * @param data - data to be written into the file
+ * @param filename - filename of output file - should end with hdf5 or h5
+ * @param dimension1 - first dimension of output data
+ * @param dimension2 - second dimension of output data
+ * @param dimension3 - third dimension of output data
+ */
+void writeComplex3DArrayToHdf5(const std::vector<std::complex<double>> data,
+                               const string filename,
+                               const unsigned long dimension1,
+                               const unsigned long dimension2,
+                               const unsigned long dimension3);
+
+/**
+ * create naming for output
+ * @param baseName base name to identify what should be outputted
+ * @return stuck together name
+ */
+std::string createOutputString(const std::string baseName);
 
 
 

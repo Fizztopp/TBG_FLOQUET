@@ -7,7 +7,8 @@
 // intrinsic parameters
 // electronic
 #define SC        4                                                     // defines super cell (m+1,n) and thus commensurate twist angle
-#define NATOM     244                     						        // # atoms (dimension of Hamiltonian)
+#define NATOM     244
+// # atoms (dimension of Hamiltonian)
 #define lconst    2.445                                                 // lattice constant (Angstroem)
 #define	qq1       3.15													// hopping renormalization
 #define	aa1       1.411621												// intralayer nearest-neigbour distance
@@ -17,8 +18,8 @@
 #define BETA      10.0                       					     	// inverse temperature (1/eV)
 // additional options
 #define RG        1.0                                                   // Fermi renormalization (1. off) <-- magic angle ~1.05 <->  Natom ~13468 <-> v_fermi ~0.0
-#define VV        0.0001                                                // symmetric top-gate/back-gate potential (eV)
-#define dgap      0.0001                                                // sublattice potential a la Haldane (eV)
+#define VV        0.0000                                                // symmetric top-gate/back-gate potential (eV)
+#define dgap      0.0000                                                // sublattice potential a la Haldane (eV)
 
 // numerical paramters
 #define mu_init   0.80											     	// initial guess for chemical potenital -> not necessarily needed for Floquet (eV)
@@ -53,8 +54,7 @@ typedef vector<cdouble> cvec;                     						// vectors with complex 
 constexpr cdouble II(0,1);
 
 namespace cavityConstants{
-
-    constexpr double g(0.05);
+    constexpr double g(0.01);
     const std::vector<double> eA{1./sqrt(2.), 1./sqrt(2.), 0.0};
 }
 

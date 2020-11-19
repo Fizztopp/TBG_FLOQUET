@@ -37,7 +37,7 @@ set(header_files
         include/FileHandling.h
         include/Hk.h
         include/HkA.h
-        )
+        src/OutputUtilities.cpp include/OutputUtilities.h)
 
 include_directories("./include")
 #include MKL

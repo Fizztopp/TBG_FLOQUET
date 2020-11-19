@@ -55,10 +55,11 @@
 #include "Hk0.h"
 #include "FloquetBerryCurvature.h"
 #include "FileHandling.h"
+#include "OutputUtilities.h"
 #include "Hk.h"
 #include "HkA.h"
 #include "mkl.h"
-
+#include <chrono>
 
 int main(int argc, char *argv[]) {
     //************** MPI INIT ***************************
@@ -83,6 +84,8 @@ int main(int argc, char *argv[]) {
     cout << "Thread " << omp_get_thread_num() << " out of " << omp_get_num_threads() << " says hello!" << endl;
 #endif
     //******************************************************************
+
+    auto startTime = std::chrono::high_resolution_clock::now();
 
     // DECLARATIONS AND INTITALIZATIONS
     const int a = SC + 1;
@@ -122,7 +125,6 @@ int main(int argc, char *argv[]) {
     vector<dvec> K_PATH;
     ReadIn(K_PATH, "Data/k_path.dat");
     if (myrank == 0) cout << "high-symmetry path --> " << K_PATH.size() << " points" << endl;
-    int num_kpoints_PATH = K_PATH.size();
 
     // irr. BZ
     //vector of weights
@@ -133,7 +135,6 @@ int main(int argc, char *argv[]) {
     vector<dvec> BZ_IRR;
     ReadIn(BZ_IRR, "Data/k_BZ_irr.dat");
     if (myrank == 0) cout << "irreducible BZ --> " << BZ_IRR.size() << " points" << endl;
-    int num_kpoints_BZ = BZ_IRR.size();
 
     // full BZ
     //vector of weights
@@ -144,29 +145,17 @@ int main(int argc, char *argv[]) {
     vector<dvec> BZ_FULL;
     ReadIn(BZ_FULL, "Data/k_BZ_full.dat");
     if (myrank == 0) cout << "full BZ --> " << BZ_FULL.size() << " points" << endl;
-    int num_kpoints_BZ_full = BZ_FULL.size();
 
-    const clock_t begin_time = clock();                                 // time summed over all threads
-#ifndef NO_OMP
-    double dtime = omp_get_wtime();                                        // time per core
-#endif
 
-    const std::vector<double> kVec1{PI / 3., PI / 3., 0.0};
+    std::vector<double> kPoint{0.0, 0.0, 0.0};
+    std::vector<std::vector<double>> samplePath{kPoint};
 
-    std::vector<std::complex<double>> basisVectors(NATOM * NATOM, std::complex<double>(0.0, 0.0));
+    generateMatrixOutputForKSet(samplePath, "placeholder", lvec, UNIT_CELL);
 
-    std::vector<double> eValsHk0 = Hk0DiagonalWithBasis(basisVectors, kVec1, lvec, UNIT_CELL);
-    std::vector<std::complex<double>> HkAinHk0Basis = HkAInGivenBasis(basisVectors, kVec1, lvec, UNIT_CELL);
-
-    writeReal1DArrayToHdf5(eValsHk0, "Data/eValsHk0.hdf5");
-    writeComplex2DArrayToHdf5(HkAinHk0Basis, "Data/HkAinHk0Basis.hdf5", NATOM, NATOM);
-
+    auto stopTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stopTime - startTime);
     if (myrank == 0) {
-        cout << "Total caluclation time (MPI): " << float(clock() - begin_time) / CLOCKS_PER_SEC << " seconds" << endl;
-#ifndef NO_OMP
-        dtime = omp_get_wtime() - dtime;
-        cout << "Total caluclation time (OMP): " << dtime << " seconds" << endl;
-#endif
+        std::cout << "Total Wall-Clock time in milliseconds: " << duration.count() << std::endl;
     }
 
 #ifndef NO_MPI
