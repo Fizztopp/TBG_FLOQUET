@@ -11,6 +11,10 @@
 #include "Hk0.h"
 #include "MatrixMultiplication.h"
 
+#ifndef NO_MPI                                 //REMEMBER: Each Process has its own copy of all allocated memory! --> node
+#include <mpi.h>
+#endif
+
 void set_Hk(dvec &kvec, cvec &Hk, const dvec &lvec, vector<dvec> &UNIT_CELL, double time)
 /**
  *	Set time-dependent Hamiltonian matrix with Peierls field

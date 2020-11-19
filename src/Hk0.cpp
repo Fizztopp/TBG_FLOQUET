@@ -10,6 +10,10 @@
 #include "Diagonalization.h"
 #include "mkl.h"
 
+#ifndef NO_MPI                                 //REMEMBER: Each Process has its own copy of all allocated memory! --> node
+#include <mpi.h>
+#endif
+
 void set_Hk0(const dvec &kvec, cvec &Hk, const dvec &lvec, const vector<dvec> &UNIT_CELL)
 /**
  * 	Set eq. Hamiltonian (without external field)

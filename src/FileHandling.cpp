@@ -3,11 +3,11 @@
 #include <fstream>
 #include <iterator>
 #include <string>
-#include <hdf5/serial/H5public.h>
+#include <H5public.h>
 #include <algorithm>
 #include <cassert>
 
-#include "hdf5/serial/H5Cpp.h"
+#include "H5Cpp.h"
 #include "Constants.h"
 
 void ReadIn(vector<dvec> &MAT, const string &filename) {

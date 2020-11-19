@@ -10,6 +10,11 @@
 #include "Diagonalization.h"
 #include "Hk.h"
 
+
+#ifndef NO_MPI                                 //REMEMBER: Each Process has its own copy of all allocated memory! --> node
+#include <mpi.h>
+#endif
+
 using namespace std;
 
 void FLOQUET_BC_LOOP(dvec kvec, double kmin, double kmax, int Nk, const dvec &lvec, vector<dvec> &UNIT_CELL, dvec &evals_FLOQUET, dvec &bands_BCs_FLOQUET, const string &filename)

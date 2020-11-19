@@ -25,6 +25,6 @@ set(test_sources
 add_executable(runAllTests.out ${project_sources} ${test_sources})
 target_link_libraries(runAllTests.out gtest gtest_main)
 target_link_libraries(runAllTests.out ${HDF5_LIBRARIES})
-
+target_link_libraries(runAllTests.out ${MPI_CXX_LIBRARIES})
 
 add_test(NAME allTests COMMAND runAllTests.out)
