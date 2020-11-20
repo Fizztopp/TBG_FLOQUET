@@ -60,7 +60,6 @@ add_executable(${PROJECT_NAME}.out ${project_sources} ${header_files})
 
 target_link_libraries(${PROJECT_NAME}.out ${HDF5_LIBRARIES})
 target_link_libraries(${PROJECT_NAME}.out ${MPI_CXX_LIBRARIES})
-#target_link_libraries(${PROJECT_NAME}.out ${MKL_LIBRARIES}/lib/intel64/libmkl_intel_lp64.so)
 
 
 

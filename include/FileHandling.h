@@ -62,7 +62,7 @@ void writeComplex3DArrayToHdf5(const std::vector<std::complex<double>> data,
  * @param baseName base name to identify what should be outputted
  * @return stuck together name
  */
-std::string createOutputString(const std::string baseName);
+std::string createOutputString(const std::string &baseName);
 
 
 
