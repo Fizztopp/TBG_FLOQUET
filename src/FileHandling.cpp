@@ -164,7 +164,7 @@ void writeComplex3DArrayToHdf5(const std::vector<std::complex<double>> data,
  * @param readInArray array which is filled with to be read data
  * @param fileName of to be read data
  */
-void readInComplex2DArray(std::vector<std::complex<double>> &readInArray, const std::string &fileName) {
+void readInComplex3DArray(std::vector<std::complex<double>> &readInArray, const std::string &fileName) {
     H5::H5File file(fileName, H5F_ACC_RDONLY);
 
     H5::DataSet realDataset = file.openDataSet("Real");
@@ -179,15 +179,15 @@ void readInComplex2DArray(std::vector<std::complex<double>> &readInArray, const 
     H5::DataSpace imagDataSpace = imagDataset.getSpace();
 
     int rank = realDataSpace.getSimpleExtentNdims();
-    assert(rank == 2);
+    assert(rank == 3);
     rank = imagDataSpace.getSimpleExtentNdims();
-    assert(rank == 2);
+    assert(rank == 3);
 
-    hsize_t dimsOut[2];
-    int ndims = realDataSpace.getSimpleExtentDims(dimsOut, NULL);
-    assert(dimsOut[0] * dimsOut[1] == readInArray.size());
-    ndims = imagDataSpace.getSimpleExtentDims(dimsOut, NULL);
-    assert(dimsOut[0] * dimsOut[1] == readInArray.size());
+    hsize_t dimsOut[3];
+    realDataSpace.getSimpleExtentDims(dimsOut, NULL);
+    assert(dimsOut[0] * dimsOut[1] * dimsOut[2] == readInArray.size());
+    imagDataSpace.getSimpleExtentDims(dimsOut, NULL);
+    assert(dimsOut[0] * dimsOut[1] * dimsOut[2] == readInArray.size());
 
     std::vector<double> realInput(readInArray.size(), 0.0);
     std::vector<double> imagInput(readInArray.size(), 0.0);
@@ -211,6 +211,6 @@ void readInComplex2DArray(std::vector<std::complex<double>> &readInArray, const 
  */
 std::string createOutputString(const std::string &baseName) {
     std::string strN = to_string(SC);
-    string returnName = baseName + "_" + strN;
+    string returnName = baseName + "_" + strN + ".hdf5";
     return returnName;
 }

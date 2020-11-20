@@ -69,7 +69,7 @@ std::string createOutputString(const std::string &baseName);
  * @param readInArray array which is filled with to be read data
  * @param fileName of to be read data
  */
-void readInComplex2DArray(std::vector<std::complex<double>> &readInArray, const std::string &fileName);
+void readInComplex3DArray(std::vector<std::complex<double>> &readInArray, const std::string &fileName);
 
 
 #endif //TBG_FILEHANDLING_H

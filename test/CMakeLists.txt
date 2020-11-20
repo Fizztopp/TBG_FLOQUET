@@ -12,6 +12,7 @@ set(project_sources
         ../src/FileHandling.cpp
         ../src/Hk.cpp
         ../src/HkA.cpp
+        ../src/OutputUtilities.cpp
         )
 
 set(test_sources
@@ -20,6 +21,8 @@ set(test_sources
         LinATest.cpp
         DiagonalizationTest.cpp
         FileHandlingTest.cpp
+        NoChangeTest.cpp
+        TestInitialization.cpp
         )
 
 add_executable(runAllTests.out ${project_sources} ${test_sources})

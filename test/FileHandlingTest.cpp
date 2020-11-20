@@ -13,16 +13,16 @@ TEST(FileHandling, writingFileThrowsNoException) {
 
 TEST(FileHandling, writingArrayAndReadingItAgainIsConsistent) {
     std::string testFileName("testOutputFile.hdf5");
-    unsigned long testDimension = 16;
+    unsigned long testDimension = 27;
     std::vector<std::complex<double>> testData(testDimension, std::complex<double>(0.0, 0.0));
     for (auto ind = 0ul; ind < testDimension; ++ind) {
         testData[ind] = 3.6 * double(ind) + II * 7.3 * std::complex<double>(double(ind - 3ul));
     }
-    writeComplex2DArrayToHdf5(testData, testFileName, 4ul, 4ul);
+    writeComplex3DArrayToHdf5(testData, testFileName, 3ul, 3ul, 3ul);
 
     std::vector<std::complex<double>> readInData(testDimension, std::complex<double> (0.0, 0.0));
 
-    readInComplex2DArray(readInData, testFileName);
+    readInComplex3DArray(readInData, testFileName);
     for(auto ind = 0ul; ind < testDimension; ++ind){
         EXPECT_NEAR(testData[ind].real(), readInData[ind].real(), 1e-15);
         EXPECT_NEAR(testData[ind].imag(), readInData[ind].imag(), 1e-15);

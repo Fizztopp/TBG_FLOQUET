@@ -146,11 +146,7 @@ int main(int argc, char *argv[]) {
     ReadIn(BZ_FULL, "Data/k_BZ_full.dat");
     if (myrank == 0) cout << "full BZ --> " << BZ_FULL.size() << " points" << endl;
 
-
-    std::vector<double> kPoint{0.0, 0.0, 0.0};
-    std::vector<std::vector<double>> samplePath{kPoint};
-
-    generateMatrixOutputForKSet(samplePath, "placeholder", lvec, UNIT_CELL);
+    generateMatrixOutputForKSet(K_PATH, "placeholder", lvec, UNIT_CELL);
 
     auto stopTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stopTime - startTime);

@@ -22,23 +22,7 @@ void diagonalToMatrix(std::vector<std::complex<double>> &matrix,
                       const unsigned long dimension);
 
 
-/**
- * calculate matricies of interes in Hk0-basis
- * @param HkAInHk0BasisKPath - matrix HkA in Hk0 basis for given set of k-points
- * @param HkAAInHk0BasisKPath - matrix HkAA in Hk0 basis for given set of k-points
- * @param HkExpCouplingInHk0BasisKPath - matrix HkExpCoupling in Hk0 basis for given set of k-points
- * @param Hk0InHk0BasisKPath - matrix Hk0 in Hk0 basis for given set of k-points
- * @param kSet - for which to calculate matricies
- * @param lvec - supercell vectors needed to calculate matricies
- * @param UNIT_CELL - atomic positions in unit cell needed to calculate matricies
- */
-void matriciesInHk0Basis(std::vector<std::complex<double>> &HkAInHk0BasisKPath,
-                         std::vector<std::complex<double>> &HkAAInHk0BasisKPath,
-                         std::vector<std::complex<double>> &HkExpCouplingInHk0BasisKPath,
-                         std::vector<std::complex<double>> &Hk0InHk0BasisKPath,
-                         const std::vector<std::vector<double>> &kSet,
-                         const std::vector<double> &lvec,
-                         const std::vector<std::vector<double>> &UNIT_CELL);
+
 
 /**
  *
@@ -74,10 +58,10 @@ void generateMatrixOutputForKSet(const std::vector<std::vector<double>> &kSet,
                         lvec,
                         UNIT_CELL);
 
-    std::string nameHk0 = createOutputString("Data/Hk0.hdf5");
-    std::string nameHkA = createOutputString("Data/HkA.hdf5");
-    std::string nameHkAA = createOutputString("Data/HkAA.hdf5");
-    std::string nameHkExpCoupling = createOutputString("Data/HkExpCoupling.hdf5");
+    std::string nameHk0 = createOutputString("Data/Hk0");
+    std::string nameHkA = createOutputString("Data/HkA");
+    std::string nameHkAA = createOutputString("Data/HkAA");
+    std::string nameHkExpCoupling = createOutputString("Data/HkExpCoupling");
 
     writeComplex3DArrayToHdf5(Hk0InHk0BasisKPath, nameHk0, kSet.size(), NATOM, NATOM);
     writeComplex3DArrayToHdf5(HkAInHk0BasisKPath, nameHkA, kSet.size(), NATOM, NATOM);

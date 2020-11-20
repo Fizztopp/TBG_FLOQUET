@@ -28,6 +28,7 @@ set(project_sources
         src/FileHandling.cpp
         src/Hk.cpp
         src/HkA.cpp
+        src/OutputUtilities.cpp
         )
 
 set(header_files
@@ -41,7 +42,8 @@ set(header_files
         include/FileHandling.h
         include/Hk.h
         include/HkA.h
-        src/OutputUtilities.cpp include/OutputUtilities.h)
+        include/OutputUtilities.h
+        include/TestInitialization.h)
 
 include_directories("./include")
 include_directories(SYSTEM ${MPI_INCLUDE_PATH})
