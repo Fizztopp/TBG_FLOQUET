@@ -160,12 +160,57 @@ void writeComplex3DArrayToHdf5(const std::vector<std::complex<double>> data,
 }
 
 /**
+ *
+ * @param readInArray array which is filled with to be read data
+ * @param fileName of to be read data
+ */
+void readInComplex2DArray(std::vector<std::complex<double>> &readInArray, const std::string &fileName) {
+    H5::H5File file(fileName, H5F_ACC_RDONLY);
+
+    H5::DataSet realDataset = file.openDataSet("Real");
+    H5::DataSet imagDataset = file.openDataSet("Imag");
+
+    H5T_class_t typeClass = realDataset.getTypeClass();
+    assert(typeClass == H5T_FLOAT);
+    typeClass = imagDataset.getTypeClass();
+    assert(typeClass == H5T_FLOAT);
+
+    H5::DataSpace realDataSpace = realDataset.getSpace();
+    H5::DataSpace imagDataSpace = imagDataset.getSpace();
+
+    int rank = realDataSpace.getSimpleExtentNdims();
+    assert(rank == 2);
+    rank = imagDataSpace.getSimpleExtentNdims();
+    assert(rank == 2);
+
+    hsize_t dimsOut[2];
+    int ndims = realDataSpace.getSimpleExtentDims(dimsOut, NULL);
+    assert(dimsOut[0] * dimsOut[1] == readInArray.size());
+    ndims = imagDataSpace.getSimpleExtentDims(dimsOut, NULL);
+    assert(dimsOut[0] * dimsOut[1] == readInArray.size());
+
+    std::vector<double> realInput(readInArray.size(), 0.0);
+    std::vector<double> imagInput(readInArray.size(), 0.0);
+
+    const hsize_t inDimension[1] = {readInArray.size()};
+    H5::DataSpace memspace(1, inDimension);
+
+    realDataset.read(&realInput[0], H5::PredType::NATIVE_DOUBLE, memspace, realDataSpace);
+    imagDataset.read(&imagInput[0], H5::PredType::NATIVE_DOUBLE, memspace, imagDataSpace);
+
+    for(auto ind = 0ul; ind < readInArray.size(); ++ind){
+        readInArray[ind] = std::complex<double> (realInput[ind], imagInput[ind]);
+    }
+}
+
+
+/**
  * create naming for output
  * @param baseName base name to identify what should be outputted
  * @return stuck together name
  */
-std::string createOutputString(const std::string &baseName){
+std::string createOutputString(const std::string &baseName) {
     std::string strN = to_string(SC);
-    std:string returnName = baseName + "_" + strN;
+    string returnName = baseName + "_" + strN;
     return returnName;
 }
