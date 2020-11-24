@@ -41,5 +41,44 @@ void matriciesInHk0Basis(std::vector<std::complex<double>> &HkAInHk0BasisKPath,
                          const std::vector<double> &lvec,
                          const std::vector<std::vector<double>> &UNIT_CELL);
 
+/**
+ *
+ * @param rank rank on which one wants to know the chunksize
+ * @param numprocs total number of processes
+ * @param totalSize total size of to be calculated k-array
+ * @return size of the chunk saved on that task
+ */
+int mapRankToChunksize(const int rank, const int numprocs, const int totalSize);
+
+/**
+ *
+ * @param numprocs number of mpi processes
+ * @param kSetSize number of k-points to calculate
+ * @return k-point indices at which each task starts its local k-chunk
+ */
+std::vector<unsigned long> startChunkIndiciesMPI(const int numprocs, const unsigned long kSetSize);
+
+
+/**
+ *
+ * @param collectMat matrix of all k-points that is to be collected from all ranks
+ * @param localMat matrix that was previously calculated on each rank locally
+ */
+void collectOnMaster(std::vector<std::complex<double>> &collectMat,
+                     const std::vector<std::complex<double>> &localMat,
+                     const size_t totalSize);
+
+
+/**
+ *
+ * @param matrix matrix in which diagonal is written
+ * @param diagonal real since we take it from diagonalization of hermitian matrix
+ * @param dimension of matrix = length of diagonal
+ */
+void diagonalToMatrix(std::vector<std::complex<double>> &matrix,
+                      const std::vector<double> &diagonal,
+                      const unsigned long dimension);
+
+
 
 #endif //TBG_OUTPUTUTILITIES_H

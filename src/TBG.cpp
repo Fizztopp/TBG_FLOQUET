@@ -62,27 +62,27 @@
 #include <chrono>
 
 int main(int argc, char *argv[]) {
+    MPI_Init(&argc, &argv);
+
     //************** MPI INIT ***************************
     int numprocs = 1, myrank = 0, namelen;
 
-#ifndef NO_MPI
+//#ifndef NO_MPI
     char processor_name[MPI_MAX_PROCESSOR_NAME];
-    MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
     MPI_Get_processor_name(processor_name, &namelen);
 
-  cout << "Process " << myrank << " on " << processor_name << " out of " << numprocs << " says hello." << endl;
-  MPI_Barrier(MPI_COMM_WORLD);
-#endif
+    cout << "Process " << myrank << " on " << processor_name << " out of " << numprocs << " says hello." << endl;
+//#endif
     if (myrank == 0) cout << "\n\tProgram running on " << numprocs << " processors." << endl;
 
     //************** OPEN_MP INIT **************************************
-#ifndef NO_OMP
-    cout << "# of processes " << omp_get_num_procs() << endl;
-#pragma omp parallel
-    cout << "Thread " << omp_get_thread_num() << " out of " << omp_get_num_threads() << " says hello!" << endl;
-#endif
+//#ifndef NO_OMP
+//    cout << "# of processes " << omp_get_num_procs() << endl;
+//#pragma omp parallel
+//    cout << "Thread " << omp_get_thread_num() << " out of " << omp_get_num_threads() << " says hello!" << endl;
+//#endif
     //******************************************************************
 
     auto startTime = std::chrono::high_resolution_clock::now();
@@ -114,39 +114,17 @@ int main(int argc, char *argv[]) {
     vector<dvec> UNIT_CELL;
     ReadIn(UNIT_CELL, "Data/Unit_Cell.dat");
     if (myrank == 0) cout << "Data/Unit_Cell.dat --> " << UNIT_CELL.size() << " points" << endl;
-    if (NATOM != UNIT_CELL.size()) {
-        cout
-                << "WRONG ATOMNUMBER!!! ---------------------------------------------------------------------------------------------"
-                << endl;
-        return 0;
-    }
+    assert(NATOM == UNIT_CELL.size());
 
     //Read in vector of k-points
     vector<dvec> K_PATH;
     ReadIn(K_PATH, "Data/k_path.dat");
     if (myrank == 0) cout << "high-symmetry path --> " << K_PATH.size() << " points" << endl;
 
-    // irr. BZ
-    //vector of weights
-    vector<dvec> kweights_irr;
-    ReadIn(kweights_irr, "Data/k_weights_irr.dat");
 
-    //vector of BZ vectors
-    vector<dvec> BZ_IRR;
-    ReadIn(BZ_IRR, "Data/k_BZ_irr.dat");
-    if (myrank == 0) cout << "irreducible BZ --> " << BZ_IRR.size() << " points" << endl;
+    std::vector<std::vector<double>> singleKPoint{{0.0, 0.0, 0.0}};
 
-    // full BZ
-    //vector of weights
-    vector<dvec> kweights_full;
-    ReadIn(kweights_full, "Data/k_weights_full.dat");
-
-    //vector of BZ vectors
-    vector<dvec> BZ_FULL;
-    ReadIn(BZ_FULL, "Data/k_BZ_full.dat");
-    if (myrank == 0) cout << "full BZ --> " << BZ_FULL.size() << " points" << endl;
-
-    generateMatrixOutputForKSet(K_PATH, "placeholder", lvec, UNIT_CELL);
+    generateMatrixOutputForKSet(singleKPoint, "placeholder", lvec, UNIT_CELL);
 
     auto stopTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stopTime - startTime);

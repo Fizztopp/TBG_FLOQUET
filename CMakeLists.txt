@@ -4,8 +4,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #using intel compiler
-set(CMAKE_CXX_COMPILER "mpiicpc")
-set(CMAKE_C_COMPILER "mpiicc")
+set(CMAKE_CXX_COMPILER mpiicpc)
+set(CMAKE_C_COMPILER mpiicc)
 
 enable_language(CXX)
 
@@ -50,9 +50,8 @@ include_directories(SYSTEM ${MPI_INCLUDE_PATH})
 include_directories(${HDF5_INCLUDE_DIRS})
 include_directories(${MKL_INCLUDE_DIRS})
 
-
 #add compiler flags
-set(C_flags "-Ofast -Wall -Wextra -pedantic -mkl -qopenmp")
+set(C_flags "-O0 -g -Wall -Wextra -pedantic -mkl -qopenmp")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${C_flags}")
 
 #set project name
@@ -62,7 +61,5 @@ add_executable(${PROJECT_NAME}.out ${project_sources} ${header_files})
 
 target_link_libraries(${PROJECT_NAME}.out ${HDF5_LIBRARIES})
 target_link_libraries(${PROJECT_NAME}.out ${MPI_CXX_LIBRARIES})
-
-
 
 add_subdirectory(test)

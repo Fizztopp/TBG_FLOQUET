@@ -23,6 +23,7 @@ set(test_sources
         FileHandlingTest.cpp
         NoChangeTest.cpp
         TestInitialization.cpp
+        OutputUtilitiesTest.cpp
         )
 
 add_executable(runAllTests.out ${project_sources} ${test_sources})
