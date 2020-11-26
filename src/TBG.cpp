@@ -122,9 +122,9 @@ int main(int argc, char *argv[]) {
     if (myrank == 0) cout << "high-symmetry path --> " << K_PATH.size() << " points" << endl;
 
 
-    std::vector<std::vector<double>> singleKPoint{{0.0, 0.0, 0.0}};
+    //std::vector<std::vector<double>> singleKPoint{{0.0, 0.0, 0.0}};
 
-    generateMatrixOutputForKSet(singleKPoint, lvec, UNIT_CELL);
+    generateMatrixOutputForKSet(K_PATH, lvec, UNIT_CELL);
 
     auto stopTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stopTime - startTime);

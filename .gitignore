@@ -16,3 +16,5 @@ cmake-build-debug
 
 *.dat
 *.hdf5
+*.tar
+*.gz

@@ -3,32 +3,34 @@ import h5py
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-fileName = 'HkA.hdf5'
+linAtom = 4
+
+fileName = 'HkA_' + str(linAtom) + '.hdf5'
 file = h5py.File('../Data/' + fileName, 'r')
 hkARealPart = file['Real'][()]
 hkAImagPart = file['Imag'][()]
 print('hkARealPart.shape = ' + str(hkARealPart.shape))
 
-fileName = 'HkAA.hdf5'
+fileName = 'HkAA_' + str(linAtom) + '.hdf5'
 file = h5py.File('../Data/' + fileName, 'r')
 hkAARealPart = file['Real'][()]
 hkAAImagPart = file['Imag'][()]
 print('hkAARealPart.shape = ' + str(hkAARealPart.shape))
 
-fileName = 'HkExpCoupling.hdf5'
+fileName = 'HkExpCoupling_' + str(linAtom) + '.hdf5'
 file = h5py.File('../Data/' + fileName, 'r')
 hkExpCouplingRealPart = file['Real'][()]
 hkExpCouplingImagPart = file['Imag'][()]
 print('hkExpCouplingRealPart.shape = ' + str(hkExpCouplingRealPart.shape))
 
-fileName = 'Hk0.hdf5'
+fileName = 'Hk0_' + str(linAtom) + '.hdf5'
 file = h5py.File('../Data/' + fileName, 'r')
 hk0RealPart = file['Real'][()]
 hk0ImagPart = file['Imag'][()]
 print('hk0RealPart.shape = ' + str(hk0RealPart.shape))
 
 
-fileNameKPath = 'KSetKPoints.hdf5'
+fileNameKPath = 'KSetKPoints_' + str(linAtom) + '.hdf5'
 fileKPoints = h5py.File('../Data/' + fileNameKPath, 'r')
 kPointsArr = fileKPoints['Real'][()]
 print('kPoints.shape = ' + str(kPointsArr.shape))

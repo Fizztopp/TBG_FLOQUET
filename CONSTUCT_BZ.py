@@ -35,7 +35,7 @@ file.write("\n")
 file.write("%s " % num_KM)   
 file.close()
 
-ii = 4                                                                      # cell index
+ii = 16                                                                      # cell index
 nn = 4*(ii**2+(ii+1)*ii+(ii+1)**2)                                             # number of atoms
 lconst = 2.445                                                                 # lattice constant
 dis = 3.364   

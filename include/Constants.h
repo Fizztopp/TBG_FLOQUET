@@ -6,8 +6,8 @@
 
 // intrinsic parameters
 // electronic
-#define SC        4                                                     // defines super cell (m+1,n) and thus commensurate twist angle
-#define NATOM     244
+#define SC        16                                                   // defines super cell (m+1,n) and thus commensurate twist angle
+#define NATOM     3268
 // # atoms (dimension of Hamiltonian)
 #define lconst    2.445                                                 // lattice constant (Angstroem)
 #define	qq1       3.15													// hopping renormalization
