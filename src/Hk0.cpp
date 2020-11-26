@@ -25,7 +25,6 @@ void set_Hk0(const dvec &kvec, cvec &Hk, const dvec &lvec, const vector<dvec> &U
  *  -UNIT_CELL: Vector[NATOM] of real vectors[4] containing atomic positions and sublattice info
  */
 {
-    const double lcell = lconst * sqrt(pow(lvec[0], 2.) + pow(lvec[1], 2.));
     const double qq2 = qq1 * aa2 / aa1;
     const double kx = kvec[0];                                          // private to each Thread
     const double ky = kvec[1];

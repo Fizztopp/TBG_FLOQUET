@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
 
     //************** OPEN_MP INIT **************************************
 //#ifndef NO_OMP
-    cout << "# of processes " << omp_get_num_procs() << endl;
+    cout << "# of OpenMP processes " << omp_get_num_procs() << endl;
 //#pragma omp parallel
 //    cout << "Thread " << omp_get_thread_num() << " out of " << omp_get_num_threads() << " says hello!" << endl;
 //#endif

@@ -15,84 +15,81 @@ bool fileExists(const std::string &name);
 
 TEST(NoChange, DataIsConsistentWithPreviousResuls) {
 
+    //int myrank;
+    //MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
+    //if (myrank != 0) {
+    //    GTEST_SKIP();
+    //}
+
     mkl_set_num_threads(1);
 
-    int myrank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
+    EXPECT_EQ(SC, 4);
 
-    if (myrank == 0) {
+    std::vector<double> lvec(4ul, 0.0);
+    std::vector<std::vector<double>> UNIT_CELL;
 
+    testInitialization(lvec, UNIT_CELL);
 
-        EXPECT_EQ(SC, 4);
+    vector<dvec> K_PATH;
+    ReadIn(K_PATH, "testInputFiles/k_path.dat");
 
-        std::vector<double> lvec(4ul, 0.0);
-        std::vector<std::vector<double>> UNIT_CELL;
+    std::vector<std::vector<double>> reducedKPath;
+    reducedKPath.insert(reducedKPath.end(), K_PATH.begin(), K_PATH.begin() + 10);
+    K_PATH = reducedKPath;
 
-        testInitialization(lvec, UNIT_CELL);
+    std::vector<std::complex<double>> HkAInHk0BasisKPath;
+    std::vector<std::complex<double>> HkAAInHk0BasisKPath;
+    std::vector<std::complex<double>> HkExpCouplingInHk0BasisKPath;
+    std::vector<std::complex<double>> Hk0InHk0BasisKPath;
 
-        vector<dvec> K_PATH;
-        ReadIn(K_PATH, "testInputFiles/k_path.dat");
+    matriciesInHk0Basis(HkAInHk0BasisKPath,
+                        HkAAInHk0BasisKPath,
+                        HkExpCouplingInHk0BasisKPath,
+                        Hk0InHk0BasisKPath,
+                        K_PATH,
+                        lvec,
+                        UNIT_CELL);
 
-        std::vector<std::vector<double>> reducedKPath;
-        reducedKPath.insert(reducedKPath.end(), K_PATH.begin(), K_PATH.begin() + 10);
-        K_PATH = reducedKPath;
+    std::string nameHk0 = createOutputString("testComparisonData/Hk0");
+    std::string nameHkA = createOutputString("testComparisonData/HkA");
+    std::string nameHkAA = createOutputString("testComparisonData/HkAA");
+    std::string nameHkExpCoupling = createOutputString("testComparisonData/HkExpCoupling");
 
-        std::vector<std::complex<double>> HkAInHk0BasisKPath;
-        std::vector<std::complex<double>> HkAAInHk0BasisKPath;
-        std::vector<std::complex<double>> HkExpCouplingInHk0BasisKPath;
-        std::vector<std::complex<double>> Hk0InHk0BasisKPath;
+    if (fileExists(nameHk0) && fileExists(nameHkA) && fileExists(nameHkAA) && fileExists(nameHkExpCoupling)) {
 
-        matriciesInHk0Basis(HkAInHk0BasisKPath,
-                            HkAAInHk0BasisKPath,
-                            HkExpCouplingInHk0BasisKPath,
-                            Hk0InHk0BasisKPath,
-                            K_PATH,
-                            lvec,
-                            UNIT_CELL);
+        std::cout << "--- DATA FOR COMPARISON FOUND! ---" << '\n' << std::endl;
 
-        std::string nameHk0 = createOutputString("testComparisonData/Hk0");
-        std::string nameHkA = createOutputString("testComparisonData/HkA");
-        std::string nameHkAA = createOutputString("testComparisonData/HkAA");
-        std::string nameHkExpCoupling = createOutputString("testComparisonData/HkExpCoupling");
+        std::vector<std::complex<double>> HkAInHk0BasisKPathRead(K_PATH.size() * NATOM * NATOM,
+                                                                 std::complex<double>(0.0, 0.0));
+        readInComplex3DArray(HkAInHk0BasisKPathRead, nameHkA);
+        std::vector<std::complex<double>> HkAAInHk0BasisKPathRead(K_PATH.size() * NATOM * NATOM,
+                                                                  std::complex<double>(0.0, 0.0));
+        readInComplex3DArray(HkAAInHk0BasisKPathRead, nameHkAA);
+        std::vector<std::complex<double>> Hk0InHk0BasisKPathRead(K_PATH.size() * NATOM * NATOM,
+                                                                 std::complex<double>(0.0, 0.0));
+        readInComplex3DArray(Hk0InHk0BasisKPathRead, nameHk0);
+        std::vector<std::complex<double>> HkExpCouplingInHk0BasisKPathRead(K_PATH.size() * NATOM * NATOM,
+                                                                           std::complex<double>(0.0, 0.0));
+        readInComplex3DArray(HkExpCouplingInHk0BasisKPathRead, nameHkExpCoupling);
 
-        if (fileExists(nameHk0) && fileExists(nameHkA) && fileExists(nameHkAA) && fileExists(nameHkExpCoupling)) {
-
-            std::cout << "--- DATA FOR COMPARISON FOUND! ---" << '\n' << std::endl;
-
-            std::vector<std::complex<double>> HkAInHk0BasisKPathRead(K_PATH.size() * NATOM * NATOM,
-                                                                     std::complex<double>(0.0, 0.0));
-            readInComplex3DArray(HkAInHk0BasisKPathRead, nameHkA);
-            std::vector<std::complex<double>> HkAAInHk0BasisKPathRead(K_PATH.size() * NATOM * NATOM,
-                                                                      std::complex<double>(0.0, 0.0));
-            readInComplex3DArray(HkAAInHk0BasisKPathRead, nameHkAA);
-            std::vector<std::complex<double>> Hk0InHk0BasisKPathRead(K_PATH.size() * NATOM * NATOM,
-                                                                     std::complex<double>(0.0, 0.0));
-            readInComplex3DArray(Hk0InHk0BasisKPathRead, nameHk0);
-            std::vector<std::complex<double>> HkExpCouplingInHk0BasisKPathRead(K_PATH.size() * NATOM * NATOM,
-                                                                               std::complex<double>(0.0, 0.0));
-            readInComplex3DArray(HkExpCouplingInHk0BasisKPathRead, nameHkExpCoupling);
-
-            for (auto ind = 0ul; ind < Hk0InHk0BasisKPath.size(); ++ind) {
-                EXPECT_NEAR(Hk0InHk0BasisKPath[ind].real(), Hk0InHk0BasisKPathRead[ind].real(), 1e-15);
-                EXPECT_NEAR(Hk0InHk0BasisKPath[ind].imag(), Hk0InHk0BasisKPathRead[ind].imag(), 1e-15);
-                EXPECT_NEAR(HkAInHk0BasisKPath[ind].real(), HkAInHk0BasisKPathRead[ind].real(), 1e-15);
-                EXPECT_NEAR(HkAInHk0BasisKPath[ind].imag(), HkAInHk0BasisKPathRead[ind].imag(), 1e-15);
-                EXPECT_NEAR(HkAAInHk0BasisKPath[ind].real(), HkAAInHk0BasisKPathRead[ind].real(), 1e-15);
-                EXPECT_NEAR(HkAAInHk0BasisKPath[ind].imag(), HkAAInHk0BasisKPathRead[ind].imag(), 1e-15);
-                EXPECT_NEAR(HkExpCouplingInHk0BasisKPath[ind].real(), HkExpCouplingInHk0BasisKPathRead[ind].real(), 1e-15);
-                EXPECT_NEAR(HkExpCouplingInHk0BasisKPath[ind].imag(), HkExpCouplingInHk0BasisKPathRead[ind].imag(), 1e-15);
-            }
-
-        } else {
-            std::cout << "--- NO DATA FOR COMPARISON FOUND! - WILL WRITE DATA FOR THE FUTURE! ---" << '\n' << std::endl;
-            writeComplex3DArrayToHdf5(HkAInHk0BasisKPath, nameHkA, K_PATH.size(), NATOM, NATOM);
-            writeComplex3DArrayToHdf5(HkAAInHk0BasisKPath, nameHkAA, K_PATH.size(), NATOM, NATOM);
-            writeComplex3DArrayToHdf5(HkExpCouplingInHk0BasisKPath, nameHkExpCoupling, K_PATH.size(), NATOM, NATOM);
-            writeComplex3DArrayToHdf5(Hk0InHk0BasisKPath, nameHk0, K_PATH.size(), NATOM, NATOM);
+        for (auto ind = 0ul; ind < Hk0InHk0BasisKPath.size(); ++ind) {
+            EXPECT_NEAR(Hk0InHk0BasisKPath[ind].real(), Hk0InHk0BasisKPathRead[ind].real(), 1e-15);
+            EXPECT_NEAR(Hk0InHk0BasisKPath[ind].imag(), Hk0InHk0BasisKPathRead[ind].imag(), 1e-15);
+            EXPECT_NEAR(HkAInHk0BasisKPath[ind].real(), HkAInHk0BasisKPathRead[ind].real(), 1e-15);
+            EXPECT_NEAR(HkAInHk0BasisKPath[ind].imag(), HkAInHk0BasisKPathRead[ind].imag(), 1e-15);
+            EXPECT_NEAR(HkAAInHk0BasisKPath[ind].real(), HkAAInHk0BasisKPathRead[ind].real(), 1e-15);
+            EXPECT_NEAR(HkAAInHk0BasisKPath[ind].imag(), HkAAInHk0BasisKPathRead[ind].imag(), 1e-15);
+            EXPECT_NEAR(HkExpCouplingInHk0BasisKPath[ind].real(), HkExpCouplingInHk0BasisKPathRead[ind].real(), 1e-15);
+            EXPECT_NEAR(HkExpCouplingInHk0BasisKPath[ind].imag(), HkExpCouplingInHk0BasisKPathRead[ind].imag(), 1e-15);
         }
-    }
 
-    MPI_Barrier(MPI_COMM_WORLD);
+    } else {
+        std::cout << "--- NO DATA FOR COMPARISON FOUND! - WILL WRITE DATA FOR THE FUTURE! ---" << '\n' << std::endl;
+        writeComplex3DArrayToHdf5(HkAInHk0BasisKPath, nameHkA, K_PATH.size(), NATOM, NATOM);
+        writeComplex3DArrayToHdf5(HkAAInHk0BasisKPath, nameHkAA, K_PATH.size(), NATOM, NATOM);
+        writeComplex3DArrayToHdf5(HkExpCouplingInHk0BasisKPath, nameHkExpCoupling, K_PATH.size(), NATOM, NATOM);
+        writeComplex3DArrayToHdf5(Hk0InHk0BasisKPath, nameHk0, K_PATH.size(), NATOM, NATOM);
+    }
 
 }
 
@@ -158,10 +155,10 @@ TEST(NoChange, MPICalculationAndDataDistributionIsConsistent) {
             for (auto ind = 0ul; ind < Hk0InHk0BasisKPath.size(); ++ind) {
                 EXPECT_NEAR(Hk0InHk0BasisKPath[ind].real(), Hk0InHk0BasisKPathRead[ind].real(), 1e-12);
                 EXPECT_NEAR(Hk0InHk0BasisKPath[ind].imag(), Hk0InHk0BasisKPathRead[ind].imag(), 1e-12);
-                EXPECT_NEAR(HkAInHk0BasisKPath[ind].real(), HkAInHk0BasisKPathRead[ind].real(), 1e-15);
-                EXPECT_NEAR(HkAInHk0BasisKPath[ind].imag(), HkAInHk0BasisKPathRead[ind].imag(), 1e-15);
-                EXPECT_NEAR(HkAAInHk0BasisKPath[ind].real(), HkAAInHk0BasisKPathRead[ind].real(), 1e-15);
-                EXPECT_NEAR(HkAAInHk0BasisKPath[ind].imag(), HkAAInHk0BasisKPathRead[ind].imag(), 1e-15);
+                EXPECT_NEAR(HkAInHk0BasisKPath[ind].real(), HkAInHk0BasisKPathRead[ind].real(), 1e-12);
+                EXPECT_NEAR(HkAInHk0BasisKPath[ind].imag(), HkAInHk0BasisKPathRead[ind].imag(), 1e-12);
+                EXPECT_NEAR(HkAAInHk0BasisKPath[ind].real(), HkAAInHk0BasisKPathRead[ind].real(), 1e-12);
+                EXPECT_NEAR(HkAAInHk0BasisKPath[ind].imag(), HkAAInHk0BasisKPathRead[ind].imag(), 1e-12);
                 EXPECT_NEAR(HkExpCouplingInHk0BasisKPath[ind].real(), HkExpCouplingInHk0BasisKPathRead[ind].real(),
                             1e-15);
                 EXPECT_NEAR(HkExpCouplingInHk0BasisKPath[ind].imag(), HkExpCouplingInHk0BasisKPathRead[ind].imag(),
@@ -183,53 +180,50 @@ TEST(NoChange, MPICalculationAndDataDistributionIsConsistent) {
 
 TEST(NoChange, DiagonalizationOfHk0IsConsistent) {
 
+    //int myrank;
+    //MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
+    //if (myrank != 0) {
+    //    GTEST_SKIP();
+    //}
+
     mkl_set_num_threads(1);
 
-    int myrank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
+    EXPECT_EQ(SC, 4);
 
-    if (myrank == 0) {
+    std::vector<double> lvec(4ul, 0.0);
+    std::vector<std::vector<double>> UNIT_CELL;
 
+    testInitialization(lvec, UNIT_CELL);
 
-        EXPECT_EQ(SC, 4);
+    std::vector<double> testKPoint(3, 0.0);
 
-        std::vector<double> lvec(4ul, 0.0);
-        std::vector<std::vector<double>> UNIT_CELL;
+    std::vector<std::complex<double>> basisVectors(NATOM * NATOM, 0.0);
+    std::vector<double> eVals = Hk0DiagonalWithBasis(basisVectors, testKPoint, lvec, UNIT_CELL);
 
-        testInitialization(lvec, UNIT_CELL);
+    //std::string nameEvals = createOutputString("testComparisonData/eValsHk0");
+    std::string nameBasis = createOutputString("testComparisonData/basisHk0");
 
-        std::vector<double> testKPoint(3, 0.0);
+    if (fileExists(nameBasis)) {
 
-        std::vector<std::complex<double>> basisVectors(NATOM * NATOM, 0.0);
-        std::vector<double> eVals = Hk0DiagonalWithBasis(basisVectors, testKPoint, lvec, UNIT_CELL);
+        std::cout << "--- DATA FOR COMPARISON FOUND! ---" << '\n' << std::endl;
 
-        //std::string nameEvals = createOutputString("testComparisonData/eValsHk0");
-        std::string nameBasis = createOutputString("testComparisonData/basisHk0");
+        //std::vector<std::complex<double>> eValsRead(NATOM, 0.0);
+        //readInComplex1DArray(eValsRead, nameEvals);
 
-        if (fileExists(nameBasis)) {
+        std::vector<std::complex<double>> basisRead(NATOM * NATOM, std::complex<double>(0.0, 0.0));
+        readInComplex2DArray(basisRead, nameBasis);
 
-            std::cout << "--- DATA FOR COMPARISON FOUND! ---" << '\n' << std::endl;
-
-            //std::vector<std::complex<double>> eValsRead(NATOM, 0.0);
-            //readInComplex1DArray(eValsRead, nameEvals);
-
-            std::vector<std::complex<double>> basisRead(NATOM * NATOM, std::complex<double>(0.0, 0.0));
-            readInComplex2DArray(basisRead, nameBasis);
-
-            for (auto ind1 = 0ul; ind1 < NATOM; ++ind1) {
-                for (auto ind2 = 0ul; ind2 < NATOM; ++ind2) {
-                    EXPECT_NEAR(basisVectors[ind1 * NATOM + ind2].real(), basisRead[ind1 * NATOM + ind2].real(), 1e-12);
-                    EXPECT_NEAR(basisVectors[ind1 * NATOM + ind2].imag(), basisRead[ind1 * NATOM + ind2].imag(), 1e-12);
-                }
+        for (auto ind1 = 0ul; ind1 < NATOM; ++ind1) {
+            for (auto ind2 = 0ul; ind2 < NATOM; ++ind2) {
+                EXPECT_NEAR(basisVectors[ind1 * NATOM + ind2].real(), basisRead[ind1 * NATOM + ind2].real(), 1e-12);
+                EXPECT_NEAR(basisVectors[ind1 * NATOM + ind2].imag(), basisRead[ind1 * NATOM + ind2].imag(), 1e-12);
             }
-        } else {
-            std::cout << "--- NO DATA FOR COMPARISON FOUND! - WILL WRITE DATA FOR THE FUTURE! ---" << '\n'
-                      << std::endl;
-            writeComplex2DArrayToHdf5(basisVectors, nameBasis, NATOM, NATOM);
         }
+    } else {
+        std::cout << "--- NO DATA FOR COMPARISON FOUND! - WILL WRITE DATA FOR THE FUTURE! ---" << '\n'
+                  << std::endl;
+        writeComplex2DArrayToHdf5(basisVectors, nameBasis, NATOM, NATOM);
     }
-
-    MPI_Barrier(MPI_COMM_WORLD);
 
 }
 

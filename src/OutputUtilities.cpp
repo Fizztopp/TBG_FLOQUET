@@ -108,6 +108,7 @@ void collectOnMaster(std::vector<std::complex<double>> &collectMat,
                      const std::vector<std::complex<double>> &localMat,
                      const size_t totalSize) {
 
+    MPI_Status status;
     int numprocs;
     int myrank;
     MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
@@ -119,15 +120,16 @@ void collectOnMaster(std::vector<std::complex<double>> &collectMat,
             }
         } else {
             if (myrank == 0) {
-                int chunksizeToReceive = mapRankToChunksize(rank, numprocs, totalSize) * NATOM * NATOM;
-                MPI_Recv((void *) &localMat[0], chunksizeToReceive, MPI_COMPLEX, rank, rank, MPI_COMM_WORLD,
-                         MPI_STATUS_IGNORE);
-                collectMat.insert(collectMat.end(), localMat.begin(), localMat.begin() + chunksizeToReceive);
+                int chunkSizeToReceive = mapRankToChunksize(rank, numprocs, totalSize) * NATOM * NATOM;
+                std::vector<std::complex<double>> tempVec (chunkSizeToReceive, std::complex<double> (0.0, 0.0));
+                MPI_Recv(&tempVec[0], chunkSizeToReceive, MPI_DOUBLE_COMPLEX, rank, rank, MPI_COMM_WORLD,
+                         &status);
+                collectMat.insert(collectMat.end(), tempVec.begin(), tempVec.end());
             } else {
                 if (myrank == rank) {
                     assert(localMat.size() ==
                            mapRankToChunksize(rank, numprocs, totalSize) * NATOM * NATOM);
-                    MPI_Send(&localMat[0], localMat.size(), MPI_COMPLEX, 0, rank, MPI_COMM_WORLD);
+                    MPI_Send(&localMat[0], localMat.size(), MPI_DOUBLE_COMPLEX, 0, rank, MPI_COMM_WORLD);
                 }
             }
         }

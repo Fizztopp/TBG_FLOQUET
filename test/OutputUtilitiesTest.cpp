@@ -96,9 +96,7 @@ TEST(OutputUtilityTests, collectOnMasterWorks) {
     std::vector<std::complex<double>> localVec(localSize * NATOM * NATOM, std::complex<double> (0.0, 0.0));
 
     for (auto k = 0ul; k < localSize; ++k) {
-        for (auto band = 0ul; band < NATOM * NATOM; ++band) {
-            localVec[k * NATOM * NATOM + band] = std::complex<double>(double(k), 0.0);
-        }
+            localVec[k * NATOM * NATOM] = std::complex<double>(double(k), 0.0);
     }
 
     std::vector<std::complex<double>> totalVec;
