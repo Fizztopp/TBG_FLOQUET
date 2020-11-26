@@ -43,87 +43,84 @@ void set_HkA(std::vector<std::complex<double>> &HkA,
     std::fill(HkA.begin(), HkA.end(), 0.0);
 
     // Bottom layer
-#pragma omp parallel
-    {
-        double d, rx, ry, rz;
-#pragma omp for
-        for (int i = 0; i < NATOM / 2; ++i) {
-            // Back-gate voltage
-            HkA[fq(i, i, NATOM)] = VV / 2.;
-            // Sublattice potential
-            if (UNIT_CELL[i][3] < 0.9) {
-                HkA[fq(i, i, NATOM)] += -dgap / 2.;
-            } else {
-                HkA[fq(i, i, NATOM)] += dgap / 2.;
-            }
-            for (int j = i + 1; j < NATOM / 2; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        HkA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
-                                                exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
-                    }
-                }
-                HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
-            }
+    double d, rx, ry, rz;
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = 0; i < NATOM / 2; ++i) {
+        // Back-gate voltage
+        HkA[fq(i, i, NATOM)] = VV / 2.;
+        // Sublattice potential
+        if (UNIT_CELL[i][3] < 0.9) {
+            HkA[fq(i, i, NATOM)] += -dgap / 2.;
+        } else {
+            HkA[fq(i, i, NATOM)] += dgap / 2.;
         }
-        // Top layer
-#pragma omp for
-        for (int i = NATOM / 2; i < NATOM; ++i) {
-            // Top-gate voltage
-            HkA[fq(i, i, NATOM)] = -VV / 2.;
-            // Sublattice potential
-            if (UNIT_CELL[i][3] < 0.9) {
-                HkA[fq(i, i, NATOM)] += -dgap / 2.;
-            } else {
-                HkA[fq(i, i, NATOM)] += dgap / 2.;
-            }
-            for (int j = i + 1; j < NATOM; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        HkA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
-                                                exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
-                    }
+        for (int j = i + 1; j < NATOM / 2; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    HkA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
+                                            exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                            II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
                 }
-                HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
             }
+            HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
         }
-        // Inter-layer terms
-#ifndef NO_IC
-#pragma omp for
-        for (int i = 0; i < NATOM / 2; ++i) {
-            for (int j = NATOM / 2; j < NATOM; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        // Vpp_pi term
-                        HkA[fq(i, j, NATOM)] += (1. - pow(aa2 / d, 2.)) * t1 / RG * exp(qq1 * (1. - (d / aa1)))
-                                                * exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
-                        // Vpp_sigma term
-                        HkA[fq(i, j, NATOM)] += pow(aa2 / d, 2.) * t2 * exp(qq2 * (1. - (d / aa2))) *
-                                                exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
-
-                    }
-                }
-                HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
-            }
-        }
-#endif
     }
+    // Top layer
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = NATOM / 2; i < NATOM; ++i) {
+        // Top-gate voltage
+        HkA[fq(i, i, NATOM)] = -VV / 2.;
+        // Sublattice potential
+        if (UNIT_CELL[i][3] < 0.9) {
+            HkA[fq(i, i, NATOM)] += -dgap / 2.;
+        } else {
+            HkA[fq(i, i, NATOM)] += dgap / 2.;
+        }
+        for (int j = i + 1; j < NATOM; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    HkA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
+                                            exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                            II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
+                }
+            }
+            HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
+        }
+    }
+    // Inter-layer terms
+#ifndef NO_IC
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = 0; i < NATOM / 2; ++i) {
+        for (int j = NATOM / 2; j < NATOM; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    // Vpp_pi term
+                    HkA[fq(i, j, NATOM)] += (1. - pow(aa2 / d, 2.)) * t1 / RG * exp(qq1 * (1. - (d / aa1)))
+                                            * exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                            II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
+                    // Vpp_sigma term
+                    HkA[fq(i, j, NATOM)] += pow(aa2 / d, 2.) * t2 * exp(qq2 * (1. - (d / aa2))) *
+                                            exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                            II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
+
+                }
+            }
+            HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
+        }
+    }
+#endif
 }
 
 /**
@@ -158,91 +155,90 @@ void set_HkAA(std::vector<std::complex<double>> &HkAA,
     std::fill(HkAA.begin(), HkAA.end(), 0.0);
 
     // Bottom layer
-#pragma omp parallel
-    {
-        double d, rx, ry, rz;
-#pragma omp for
-        for (int i = 0; i < NATOM / 2; ++i) {
-            // Back-gate voltage
-            HkAA[fq(i, i, NATOM)] = VV / 2.;
-            // Sublattice potential
-            if (UNIT_CELL[i][3] < 0.9) {
-                HkAA[fq(i, i, NATOM)] += -dgap / 2.;
-            } else {
-                HkAA[fq(i, i, NATOM)] += dgap / 2.;
-            }
-            for (int j = i + 1; j < NATOM / 2; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        HkAA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
-                                                 exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                 (-0.5) * g * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst *
-                                                 (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
-                    }
-                }
-                HkAA[fq(j, i, NATOM)] = conj(HkAA[fq(i, j, NATOM)]);
-            }
-        }
-        // Top layer
-#pragma omp for
-        for (int i = NATOM / 2; i < NATOM; ++i) {
-            // Top-gate voltage
-            HkAA[fq(i, i, NATOM)] = -VV / 2.;
-            // Sublattice potential
-            if (UNIT_CELL[i][3] < 0.9) {
-                HkAA[fq(i, i, NATOM)] += -dgap / 2.;
-            } else {
-                HkAA[fq(i, i, NATOM)] += dgap / 2.;
-            }
-            for (int j = i + 1; j < NATOM; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        HkAA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
-                                                 exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                 (-0.5) * g * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst *
-                                                 (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
-                    }
-                }
-                HkAA[fq(j, i, NATOM)] = conj(HkAA[fq(i, j, NATOM)]);
-            }
-        }
-        // Inter-layer terms
-#ifndef NO_IC
-#pragma omp for
-        for (int i = 0; i < NATOM / 2; ++i) {
-            for (int j = NATOM / 2; j < NATOM; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        // Vpp_pi term
-                        HkAA[fq(i, j, NATOM)] += (1. - pow(aa2 / d, 2.)) * t1 / RG * exp(qq1 * (1. - (d / aa1)))
-                                                 * exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                 (-0.5) * g * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst *
-                                                 (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
-                        // Vpp_sigma term
-                        HkAA[fq(i, j, NATOM)] += pow(aa2 / d, 2.) * t2 * exp(qq2 * (1. - (d / aa2))) *
-                                                 exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                 (-0.5) * g * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst *
-                                                 II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
+    double d, rx, ry, rz;
 
-                    }
-                }
-                HkAA[fq(j, i, NATOM)] = conj(HkAA[fq(i, j, NATOM)]);
-            }
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = 0; i < NATOM / 2; ++i) {
+        // Back-gate voltage
+        HkAA[fq(i, i, NATOM)] = VV / 2.;
+        // Sublattice potential
+        if (UNIT_CELL[i][3] < 0.9) {
+            HkAA[fq(i, i, NATOM)] += -dgap / 2.;
+        } else {
+            HkAA[fq(i, i, NATOM)] += dgap / 2.;
         }
-#endif
+        for (int j = i + 1; j < NATOM / 2; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    HkAA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
+                                             exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                             (-0.5) * g * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst *
+                                             (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
+                }
+            }
+            HkAA[fq(j, i, NATOM)] = conj(HkAA[fq(i, j, NATOM)]);
+        }
     }
+    // Top layer
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = NATOM / 2; i < NATOM; ++i) {
+        // Top-gate voltage
+        HkAA[fq(i, i, NATOM)] = -VV / 2.;
+        // Sublattice potential
+        if (UNIT_CELL[i][3] < 0.9) {
+            HkAA[fq(i, i, NATOM)] += -dgap / 2.;
+        } else {
+            HkAA[fq(i, i, NATOM)] += dgap / 2.;
+        }
+        for (int j = i + 1; j < NATOM; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    HkAA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
+                                             exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                             (-0.5) * g * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst *
+                                             (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
+                }
+            }
+            HkAA[fq(j, i, NATOM)] = conj(HkAA[fq(i, j, NATOM)]);
+        }
+    }
+    // Inter-layer terms
+#ifndef NO_IC
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = 0; i < NATOM / 2; ++i) {
+        for (int j = NATOM / 2; j < NATOM; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    // Vpp_pi term
+                    HkAA[fq(i, j, NATOM)] += (1. - pow(aa2 / d, 2.)) * t1 / RG * exp(qq1 * (1. - (d / aa1)))
+                                             * exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                             (-0.5) * g * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst *
+                                             (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
+                    // Vpp_sigma term
+                    HkAA[fq(i, j, NATOM)] += pow(aa2 / d, 2.) * t2 * exp(qq2 * (1. - (d / aa2))) *
+                                             exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                             (-0.5) * g * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst *
+                                             II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst;
+
+                }
+            }
+            HkAA[fq(j, i, NATOM)] = conj(HkAA[fq(i, j, NATOM)]);
+        }
+    }
+#endif
+
 }
 
 
@@ -278,86 +274,83 @@ void set_HkExpCoupling(std::vector<std::complex<double>> &HkA,
     std::fill(HkA.begin(), HkA.end(), 0.0);
 
     // Bottom layer
-#pragma omp parallel
-    {
-        double d, rx, ry, rz;
-#pragma omp for
-        for (int i = 0; i < NATOM / 2; ++i) {
-            // Back-gate voltage
-            HkA[fq(i, i, NATOM)] = VV / 2.;
-            // Sublattice potential
-            if (UNIT_CELL[i][3] < 0.9) {
-                HkA[fq(i, i, NATOM)] += -dgap / 2.;
-            } else {
-                HkA[fq(i, i, NATOM)] += dgap / 2.;
-            }
-            for (int j = i + 1; j < NATOM / 2; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        HkA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
-                                                exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                exp(II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst);
-                    }
-                }
-                HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
-            }
+    double d, rx, ry, rz;
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = 0; i < NATOM / 2; ++i) {
+        // Back-gate voltage
+        HkA[fq(i, i, NATOM)] = VV / 2.;
+        // Sublattice potential
+        if (UNIT_CELL[i][3] < 0.9) {
+            HkA[fq(i, i, NATOM)] += -dgap / 2.;
+        } else {
+            HkA[fq(i, i, NATOM)] += dgap / 2.;
         }
-        // Top layer
-#pragma omp for
-        for (int i = NATOM / 2; i < NATOM; ++i) {
-            // Top-gate voltage
-            HkA[fq(i, i, NATOM)] = -VV / 2.;
-            // Sublattice potential
-            if (UNIT_CELL[i][3] < 0.9) {
-                HkA[fq(i, i, NATOM)] += -dgap / 2.;
-            } else {
-                HkA[fq(i, i, NATOM)] += dgap / 2.;
-            }
-            for (int j = i + 1; j < NATOM; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        HkA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
-                                                exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                exp(II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst);
-                    }
+        for (int j = i + 1; j < NATOM / 2; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    HkA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
+                                            exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                            exp(II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst);
                 }
-                HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
             }
+            HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
         }
-        // Inter-layer terms
-#ifndef NO_IC
-#pragma omp for
-        for (int i = 0; i < NATOM / 2; ++i) {
-            for (int j = NATOM / 2; j < NATOM; ++j) {
-                for (int m = 0; m < 3; ++m) {
-                    for (int n = 0; n < 3; ++n) {
-                        rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
-                        ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
-                        rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
-                        d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
-                        // Vpp_pi term
-                        HkA[fq(i, j, NATOM)] += (1. - pow(aa2 / d, 2.)) * t1 / RG * exp(qq1 * (1. - (d / aa1)))
-                                                * exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                exp(II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst);
-                        // Vpp_sigma term
-                        HkA[fq(i, j, NATOM)] += pow(aa2 / d, 2.) * t2 * exp(qq2 * (1. - (d / aa2))) *
-                                                exp(II * (kx * lconst * rx + ky * lconst * ry)) *
-                                                exp(II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst);
-                    }
-                }
-                HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
-            }
-        }
-#endif
     }
+    // Top layer
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = NATOM / 2; i < NATOM; ++i) {
+        // Top-gate voltage
+        HkA[fq(i, i, NATOM)] = -VV / 2.;
+        // Sublattice potential
+        if (UNIT_CELL[i][3] < 0.9) {
+            HkA[fq(i, i, NATOM)] += -dgap / 2.;
+        } else {
+            HkA[fq(i, i, NATOM)] += dgap / 2.;
+        }
+        for (int j = i + 1; j < NATOM; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    HkA[fq(i, j, NATOM)] += t1 / RG * exp(qq1 * (1. - (d / aa1))) *
+                                            exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                            exp(II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst);
+                }
+            }
+            HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
+        }
+    }
+    // Inter-layer terms
+#ifndef NO_IC
+#pragma omp parallel for private(d, rx, ry, rz)
+    for (int i = 0; i < NATOM / 2; ++i) {
+        for (int j = NATOM / 2; j < NATOM; ++j) {
+            for (int m = 0; m < 3; ++m) {
+                for (int n = 0; n < 3; ++n) {
+                    rx = UNIT_CELL[i][0] - UNIT_CELL[j][0] + double(m - 1) * lvec[0] + double(n - 1) * lvec[2];
+                    ry = double(m - 1) * lvec[1] + UNIT_CELL[i][1] - UNIT_CELL[j][1] + double(n - 1) * lvec[3];
+                    rz = UNIT_CELL[i][2] - UNIT_CELL[j][2];
+                    d = lconst * sqrt(pow(rx, 2.) + pow(ry, 2.) + pow(rz, 2.));
+                    // Vpp_pi term
+                    HkA[fq(i, j, NATOM)] += (1. - pow(aa2 / d, 2.)) * t1 / RG * exp(qq1 * (1. - (d / aa1)))
+                                            * exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                            exp(II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst);
+                    // Vpp_sigma term
+                    HkA[fq(i, j, NATOM)] += pow(aa2 / d, 2.) * t2 * exp(qq2 * (1. - (d / aa2))) *
+                                            exp(II * (kx * lconst * rx + ky * lconst * ry)) *
+                                            exp(II * g * (eA[0] * rx + eA[1] * ry + eA[2] * rz) * lconst);
+                }
+            }
+            HkA[fq(j, i, NATOM)] = conj(HkA[fq(i, j, NATOM)]);
+        }
+    }
+#endif
 }
 
 /**
@@ -380,7 +373,6 @@ std::vector<std::complex<double>> HkAInGivenBasis(const std::vector<std::complex
     std::vector<std::complex<double>> TEMP2(N * N, std::complex<double>(0.0, 0.0));
 
     set_HkA(HkA, kvec, lvec, UNIT_CELL, cavityConstants::g, cavityConstants::eA);
-    //set_Hk0(kvec, HkA, lvec, UNIT_CELL);
 
     const double alpha = 1.0;
     const double beta = 0.0;
@@ -407,9 +399,9 @@ std::vector<std::complex<double>> HkAInGivenBasis(const std::vector<std::complex
  * UNIT_CELL contains the atomic positions in the unit-cell
  */
 std::vector<std::complex<double>> HkAAInGivenBasis(const std::vector<std::complex<double>> &basisVectors,
-                                                  const std::vector<double> &kvec,
-                                                  const std::vector<double> &lvec,
-                                                  const std::vector<std::vector<double>> &UNIT_CELL) {
+                                                   const std::vector<double> &kvec,
+                                                   const std::vector<double> &lvec,
+                                                   const std::vector<std::vector<double>> &UNIT_CELL) {
 
     const int N = NATOM;
 
@@ -435,7 +427,6 @@ std::vector<std::complex<double>> HkAAInGivenBasis(const std::vector<std::comple
 
     return TEMP2;
 }
-
 
 
 /**

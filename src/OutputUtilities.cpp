@@ -12,27 +12,6 @@
 #include "mpi.h"
 
 
-
-/**
- *
- * @param kVector Vector of 3D vectors of k-points
- * @param fileName file name for output
- */
-void flattenAndOutputKArray(const std::vector<std::vector<double>> kVector, const std::string fileName);
-
-/**
- *
- * @param kSetTotal the complete k-set for which output should be created
- * @return the part of the k-set to be calculated on current task
- */
-std::vector<std::vector<double>> createLocalKset(const std::vector<std::vector<double>> &kSetTotal);
-
-void printMatriciesOnMaster(const vector<std::vector<double>> &kSet,
-                            const vector<std::complex<double>> &HkAInHk0BasisKPathComplete,
-                            const vector<std::complex<double>> &HkAAInHk0BasisKPathComplete,
-                            const vector<std::complex<double>> &HkExpCouplingInHk0BasisKPathComplete,
-                            const vector<std::complex<double>> &Hk0InHk0BasisKPathComplete);
-
 /**
  *
  * @param kSet vector of 3-d kpoint vectors for which matricies should be calculated
@@ -41,17 +20,39 @@ void printMatriciesOnMaster(const vector<std::vector<double>> &kSet,
  * @param UNIT_CELL atomic positions in unit-cell
  */
 void generateMatrixOutputForKSet(const std::vector<std::vector<double>> &kSet,
-                                 const std::string name,
                                  const std::vector<double> &lvec,
                                  const std::vector<std::vector<double>> &UNIT_CELL) {
 
-    std::vector<std::complex<double>> HkAInHk0BasisKPath;
-    std::vector<std::complex<double>> HkAAInHk0BasisKPath;
-    std::vector<std::complex<double>> HkExpCouplingInHk0BasisKPath;
-    std::vector<std::complex<double>> Hk0InHk0BasisKPath;
+    std::vector<std::complex<double>> HkAInHk0BasisKPathComplete;
+    std::vector<std::complex<double>> HkAAInHk0BasisKPathComplete;
+    std::vector<std::complex<double>> HkExpCouplingInHk0BasisKPathComplete;
+    std::vector<std::complex<double>> Hk0InHk0BasisKPathComplete;
+    splitKSetAndObtainMatriciesOnMaster(kSet, lvec, UNIT_CELL, HkAInHk0BasisKPathComplete, HkAAInHk0BasisKPathComplete,
+                                        HkExpCouplingInHk0BasisKPathComplete, Hk0InHk0BasisKPathComplete);
 
+    int myrank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 
-    std::vector<std::vector<double>> localKSet = createLocalKset(kSet);
+    if (myrank == 0) {
+        printMatricies(kSet, HkAInHk0BasisKPathComplete, HkAAInHk0BasisKPathComplete,
+                       HkExpCouplingInHk0BasisKPathComplete,
+                       Hk0InHk0BasisKPathComplete);
+    }
+}
+
+void splitKSetAndObtainMatriciesOnMaster(const vector<std::vector<double>> &kSet, const vector<double> &lvec,
+                                         const vector<std::vector<double>> &UNIT_CELL,
+                                         vector<std::complex<double>> &HkAInHk0BasisKPathComplete,
+                                         vector<std::complex<double>> &HkAAInHk0BasisKPathComplete,
+                                         vector<std::complex<double>> &HkExpCouplingInHk0BasisKPathComplete,
+                                         vector<std::complex<double>> &Hk0InHk0BasisKPathComplete) {
+
+    vector<complex<double>> HkAInHk0BasisKPath;
+    vector<complex<double>> HkAAInHk0BasisKPath;
+    vector<complex<double>> HkExpCouplingInHk0BasisKPath;
+    vector<complex<double>> Hk0InHk0BasisKPath;
+
+    vector<vector<double>> localKSet = createLocalKset(kSet);
 
     matriciesInHk0Basis(HkAInHk0BasisKPath,
                         HkAAInHk0BasisKPath,
@@ -60,12 +61,6 @@ void generateMatrixOutputForKSet(const std::vector<std::vector<double>> &kSet,
                         localKSet,
                         lvec,
                         UNIT_CELL);
-
-    std::vector<std::complex<double>> HkAInHk0BasisKPathComplete;
-    std::vector<std::complex<double>> HkAAInHk0BasisKPathComplete;
-    std::vector<std::complex<double>> HkExpCouplingInHk0BasisKPathComplete;
-    std::vector<std::complex<double>> Hk0InHk0BasisKPathComplete;
-
     int myrank;
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 
@@ -80,18 +75,15 @@ void generateMatrixOutputForKSet(const std::vector<std::vector<double>> &kSet,
     collectOnMaster(HkAInHk0BasisKPathComplete, HkAInHk0BasisKPath, kSet.size());
     collectOnMaster(HkAAInHk0BasisKPathComplete, HkAAInHk0BasisKPath, kSet.size());
     collectOnMaster(HkExpCouplingInHk0BasisKPathComplete, HkExpCouplingInHk0BasisKPath, kSet.size());
-
-    printMatriciesOnMaster(kSet, HkAInHk0BasisKPathComplete, HkAAInHk0BasisKPathComplete,
-                           HkExpCouplingInHk0BasisKPathComplete,
-                           Hk0InHk0BasisKPathComplete);
 }
+
 
 /**
  *
  * @param kSetTotal the complete k-set for which output should be created
  * @return the part of the k-set to be calculated on current task
  */
-std::vector<std::vector<double>> createLocalKset(const std::vector<std::vector<double>> &kSetTotal){
+std::vector<std::vector<double>> createLocalKset(const std::vector<std::vector<double>> &kSetTotal) {
     int myrank;
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
 
@@ -100,34 +92,12 @@ std::vector<std::vector<double>> createLocalKset(const std::vector<std::vector<d
 
     std::vector<unsigned long> startIndices = startChunkIndiciesMPI(numprocs, kSetTotal.size());
     std::vector<std::vector<double>> localKSet;
-    localKSet.insert(localKSet.end(), kSetTotal.begin() + startIndices[myrank], kSetTotal.begin() + startIndices[myrank + 1]);
+    localKSet.insert(localKSet.end(), kSetTotal.begin() + startIndices[myrank],
+                     kSetTotal.begin() + startIndices[myrank + 1]);
 
     return localKSet;
 }
 
-void printMatriciesOnMaster(const vector<std::vector<double>> &kSet,
-                            const vector<std::complex<double>> &HkAInHk0BasisKPathComplete,
-                            const vector<std::complex<double>> &HkAAInHk0BasisKPathComplete,
-                            const vector<std::complex<double>> &HkExpCouplingInHk0BasisKPathComplete,
-                            const vector<std::complex<double>> &Hk0InHk0BasisKPathComplete) {
-
-    int myrank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
-
-    if (myrank == 0) {
-        string nameHk0 = createOutputString("Data/Hk0");
-        string nameHkA = createOutputString("Data/HkA");
-        string nameHkAA = createOutputString("Data/HkAA");
-        string nameHkExpCoupling = createOutputString("Data/HkExpCoupling");
-
-        writeComplex3DArrayToHdf5(Hk0InHk0BasisKPathComplete, nameHk0, kSet.size(), NATOM, NATOM);
-        writeComplex3DArrayToHdf5(HkAInHk0BasisKPathComplete, nameHkA, kSet.size(), NATOM, NATOM);
-        writeComplex3DArrayToHdf5(HkAAInHk0BasisKPathComplete, nameHkAA, kSet.size(), NATOM, NATOM);
-        writeComplex3DArrayToHdf5(HkExpCouplingInHk0BasisKPathComplete, nameHkExpCoupling, kSet.size(), NATOM, NATOM);
-
-        flattenAndOutputKArray(kSet, "Data/KSetKPoints.hdf5");
-    }
-}
 
 /**
  *
@@ -142,12 +112,10 @@ void collectOnMaster(std::vector<std::complex<double>> &collectMat,
     int myrank;
     MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
-    int pos = 0;
     for (int rank = 0; rank < numprocs; ++rank) {
         if (rank == 0) {
             if (myrank == 0) {
                 collectMat.insert(collectMat.end(), localMat.begin(), localMat.end());
-                pos += localMat.size();
             }
         } else {
             if (myrank == 0) {
@@ -196,9 +164,20 @@ void matriciesInHk0Basis(std::vector<std::complex<double>> &HkAInHk0BasisKPath,
     HkExpCouplingInHk0BasisKPath.reserve(kSet.size() * NATOM * NATOM);
     Hk0InHk0BasisKPath.reserve(kSet.size() * NATOM * NATOM);
 
+    std::vector<double> ones (NATOM, 1.0);
+    std::vector<std::complex<double>> unitMatrix (NATOM * NATOM, std::complex<double> (0.0, 0.0));
+    diagonalToMatrix(unitMatrix, ones, NATOM);
+
     for (auto k = 0ul; k < kSet.size(); ++k) {
-        //std::cout << "Processing at k-point # " << k << '\n';
         eValsHk0Temp = Hk0DiagonalWithBasis(basisVectorsTemp, kSet[k], lvec, UNIT_CELL);
+
+        //check if difference is in basis vectors
+        //basisVectorsTemp = unitMatrix;
+
+        //for(auto kk = 0ul; kk < NATOM; ++kk){
+        //    std::cout << eValsHk0Temp[kk] << '\n';
+        //    std::cout << basisVectorsTemp[kk * NATOM] << '\n';
+        //}
 
         MatInHk0BasisTemp = HkAInGivenBasis(basisVectorsTemp, kSet[k], lvec, UNIT_CELL);
         HkAInHk0BasisKPath.insert(HkAInHk0BasisKPath.end(), MatInHk0BasisTemp.begin(), MatInHk0BasisTemp.end());
@@ -214,6 +193,26 @@ void matriciesInHk0Basis(std::vector<std::complex<double>> &HkAInHk0BasisKPath,
         Hk0InHk0BasisKPath.insert(Hk0InHk0BasisKPath.end(), MatInHk0BasisTemp.begin(), MatInHk0BasisTemp.end());
     }
 }
+
+void printMatricies(const vector<std::vector<double>> &kSet,
+                    const vector<std::complex<double>> &HkAInHk0BasisKPathComplete,
+                    const vector<std::complex<double>> &HkAAInHk0BasisKPathComplete,
+                    const vector<std::complex<double>> &HkExpCouplingInHk0BasisKPathComplete,
+                    const vector<std::complex<double>> &Hk0InHk0BasisKPathComplete) {
+
+    string nameHk0 = createOutputString("Data/Hk0");
+    string nameHkA = createOutputString("Data/HkA");
+    string nameHkAA = createOutputString("Data/HkAA");
+    string nameHkExpCoupling = createOutputString("Data/HkExpCoupling");
+
+    writeComplex3DArrayToHdf5(Hk0InHk0BasisKPathComplete, nameHk0, kSet.size(), NATOM, NATOM);
+    writeComplex3DArrayToHdf5(HkAInHk0BasisKPathComplete, nameHkA, kSet.size(), NATOM, NATOM);
+    writeComplex3DArrayToHdf5(HkAAInHk0BasisKPathComplete, nameHkAA, kSet.size(), NATOM, NATOM);
+    writeComplex3DArrayToHdf5(HkExpCouplingInHk0BasisKPathComplete, nameHkExpCoupling, kSet.size(), NATOM, NATOM);
+
+    flattenAndOutputKArray(kSet, "Data/KSetKPoints.hdf5");
+}
+
 
 /**
  *

@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
 
     //************** OPEN_MP INIT **************************************
 //#ifndef NO_OMP
-//    cout << "# of processes " << omp_get_num_procs() << endl;
+    cout << "# of processes " << omp_get_num_procs() << endl;
 //#pragma omp parallel
 //    cout << "Thread " << omp_get_thread_num() << " out of " << omp_get_num_threads() << " says hello!" << endl;
 //#endif
@@ -124,7 +124,7 @@ int main(int argc, char *argv[]) {
 
     std::vector<std::vector<double>> singleKPoint{{0.0, 0.0, 0.0}};
 
-    generateMatrixOutputForKSet(singleKPoint, "placeholder", lvec, UNIT_CELL);
+    generateMatrixOutputForKSet(singleKPoint, lvec, UNIT_CELL);
 
     auto stopTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stopTime - startTime);

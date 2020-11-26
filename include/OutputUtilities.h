@@ -19,7 +19,6 @@ void flattenAndOutputKArray(const std::vector<std::vector<double>> kVector, cons
  * @param UNIT_CELL atomic positions in unit-cell
  */
 void generateMatrixOutputForKSet(const std::vector<std::vector<double>> &kSet,
-                                 const std::string name,
                                  const std::vector<double> &lvec,
                                  const std::vector<std::vector<double>> &UNIT_CELL);
 
@@ -79,6 +78,33 @@ void diagonalToMatrix(std::vector<std::complex<double>> &matrix,
                       const std::vector<double> &diagonal,
                       const unsigned long dimension);
 
+void splitKSetAndObtainMatriciesOnMaster(const std::vector<std::vector<double>> &kSet, const std::vector<double> &lvec,
+                                         const std::vector<std::vector<double>> &UNIT_CELL,
+                                         std::vector<std::complex<double>> &HkAInHk0BasisKPathComplete,
+                                         std::vector<std::complex<double>> &HkAAInHk0BasisKPathComplete,
+                                         std::vector<std::complex<double>> &HkExpCouplingInHk0BasisKPathComplete,
+                                         std::vector<std::complex<double>> &Hk0InHk0BasisKPathComplete);
+
+
+/**
+ *
+ * @param kVector Vector of 3D vectors of k-points
+ * @param fileName file name for output
+ */
+void flattenAndOutputKArray(const std::vector<std::vector<double>> kVector, const std::string fileName);
+
+/**
+ *
+ * @param kSetTotal the complete k-set for which output should be created
+ * @return the part of the k-set to be calculated on current task
+ */
+std::vector<std::vector<double>> createLocalKset(const std::vector<std::vector<double>> &kSetTotal);
+
+void printMatricies(const std::vector<std::vector<double>> &kSet,
+                            const std::vector<std::complex<double>> &HkAInHk0BasisKPathComplete,
+                            const std::vector<std::complex<double>> &HkAAInHk0BasisKPathComplete,
+                            const std::vector<std::complex<double>> &HkExpCouplingInHk0BasisKPathComplete,
+                            const std::vector<std::complex<double>> &Hk0InHk0BasisKPathComplete);
 
 
 #endif //TBG_OUTPUTUTILITIES_H
