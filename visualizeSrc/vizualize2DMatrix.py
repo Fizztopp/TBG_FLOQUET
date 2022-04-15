@@ -1,23 +1,23 @@
 import numpy as np
 import h5py
 import matplotlib.pyplot as plt
+from readInData import readInData
 
-fileName = 'HkExpCoupling.hdf5'
-file = h5py.File('../Data/' + fileName, 'r')
-hkARealPart = file['Real'][()]
-hkAImagPart = file['Imag'][()]
-print('hkARealPart.shape = ' + str(hkARealPart.shape))
+linAtom = 31
 
+[hk0, hkA, hkAA, hkExp, kPoints] = readInData(linAtom)
 
-for k in range(hkARealPart.shape[0]//10):
+bandStep = 1
+
+for k in range(hkA.shape[0]//bandStep):
 
     #decide which matrix to plot
-    realPart = hkARealPart[10*k, :, :]
-    imagPart = hkAImagPart[10*k, :, :]
+    realParthk0 = hkA[bandStep*k, :, :].real
+    imagParthk0 = hkA[bandStep*k, :, :].imag
 
 
     fig, ax1 = plt.subplots(nrows=1, ncols=1)
-    colormesh1 = ax1.pcolormesh(realPart[117:127, 117:127])
+    colormesh1 = ax1.pcolormesh(realParthk0)
     fig.colorbar(colormesh1, ax=ax1)
     plt.show()
 

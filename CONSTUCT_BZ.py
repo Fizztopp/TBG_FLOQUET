@@ -26,8 +26,8 @@ mpl.rcParams['figure.figsize'] = [10.,10]
 
 #### CONSTRUCT SUPER CELL ##############################################################################################################
 Nmesh = 40                                                                        
-num_GK = 64#32                                                                    # number of k-point per hgh symmetry line
-num_KM = 63#31                                                                    # number of k-point per hgh symmetry line                                                                # interlayer distance
+num_GK = 32#32                                                                    # number of k-point per hgh symmetry line
+num_KM = 31#31                                                                    # number of k-point per hgh symmetry line                                                                # interlayer distance
 
 file = open('Data/parameters.dat','w')
 file.write("%s " % num_GK)
@@ -35,7 +35,7 @@ file.write("\n")
 file.write("%s " % num_KM)   
 file.close()
 
-ii = 16                                                                      # cell index
+ii = 4                                                                      # cell index
 nn = 4*(ii**2+(ii+1)*ii+(ii+1)**2)                                             # number of atoms
 lconst = 2.445                                                                 # lattice constant
 dis = 3.364   

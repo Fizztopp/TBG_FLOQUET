@@ -2,86 +2,49 @@ import numpy as np
 import h5py
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-
-linAtom = 4
-
-fileName = 'HkA_' + str(linAtom) + '.hdf5'
-file = h5py.File('../Data/' + fileName, 'r')
-hkARealPart = file['Real'][()]
-hkAImagPart = file['Imag'][()]
-print('hkARealPart.shape = ' + str(hkARealPart.shape))
-
-fileName = 'HkAA_' + str(linAtom) + '.hdf5'
-file = h5py.File('../Data/' + fileName, 'r')
-hkAARealPart = file['Real'][()]
-hkAAImagPart = file['Imag'][()]
-print('hkAARealPart.shape = ' + str(hkAARealPart.shape))
-
-fileName = 'HkExpCoupling_' + str(linAtom) + '.hdf5'
-file = h5py.File('../Data/' + fileName, 'r')
-hkExpCouplingRealPart = file['Real'][()]
-hkExpCouplingImagPart = file['Imag'][()]
-print('hkExpCouplingRealPart.shape = ' + str(hkExpCouplingRealPart.shape))
-
-fileName = 'Hk0_' + str(linAtom) + '.hdf5'
-file = h5py.File('../Data/' + fileName, 'r')
-hk0RealPart = file['Real'][()]
-hk0ImagPart = file['Imag'][()]
-print('hk0RealPart.shape = ' + str(hk0RealPart.shape))
+from readInData import readInData
+from extractBands import extractNLowEnergyBands
 
 
-fileNameKPath = 'KSetKPoints_' + str(linAtom) + '.hdf5'
-fileKPoints = h5py.File('../Data/' + fileNameKPath, 'r')
-kPointsArr = fileKPoints['Real'][()]
-print('kPoints.shape = ' + str(kPointsArr.shape))
+linAtom = 28
 
-assert(hkARealPart.shape[0] == kPointsArr.shape[0])
-assert(hkAARealPart.shape[0] == kPointsArr.shape[0])
-assert(hkExpCouplingRealPart.shape[0] == kPointsArr.shape[0])
-assert(hk0RealPart.shape[0] == kPointsArr.shape[0])
+[hk0, hkA, hkAA, hkExp, kPoints] = readInData(linAtom)
+totalNumberOfBands = hk0.shape[1]
 
-numberOfBands = hk0RealPart.shape[1]
+desiredNumberOfBands = 20
 
-matrixElementsHkA = np.array([
-    [numberOfBands // 2 - 3, numberOfBands // 2 - 3],
-    [numberOfBands // 2 - 2, numberOfBands // 2 - 2],
-    [numberOfBands // 2 - 1, numberOfBands // 2 - 1],
-    [numberOfBands // 2, numberOfBands // 2],
-    [numberOfBands // 2 + 1, numberOfBands // 2 + 1],
-    [numberOfBands // 2 + 2, numberOfBands // 2 + 2],
-])
+hk0Data = extractNLowEnergyBands(desiredNumberOfBands, hk0)
+hkAData = extractNLowEnergyBands(desiredNumberOfBands, hkA)
+hkAAData = extractNLowEnergyBands(desiredNumberOfBands, hkAA)
+hkExpData = extractNLowEnergyBands(desiredNumberOfBands, hkExp)
 
-matrixElementsHk0 = np.array([
-    [numberOfBands // 2 - 3, numberOfBands // 2 - 3],
-    [numberOfBands // 2 - 2, numberOfBands // 2 - 2],
-    [numberOfBands // 2 - 1, numberOfBands // 2 - 1],
-    [numberOfBands // 2, numberOfBands // 2],
-    [numberOfBands // 2 + 1, numberOfBands // 2 + 1],
-    [numberOfBands // 2 + 2, numberOfBands // 2 + 2],
-])
-
-hkAData = np.zeros((matrixElementsHkA.shape[0], hkARealPart.shape[0]), dtype='complex')
-hkAAData = np.zeros((matrixElementsHkA.shape[0], hkAARealPart.shape[0]), dtype='complex')
-hkExpCouplingData = np.zeros((matrixElementsHkA.shape[0], hkExpCouplingRealPart.shape[0]), dtype='complex')
-hk0Data = np.zeros((matrixElementsHk0.shape[0], hk0RealPart.shape[0]), dtype='complex')
-
-for ind in range(len(matrixElementsHkA)):
-    hkAData[ind, :] = hkARealPart[:, matrixElementsHkA[ind, 0], matrixElementsHkA[ind, 1]] + 1j * hkAImagPart[:, matrixElementsHkA[ind, 0], matrixElementsHkA[ind, 1]]
-    hkAAData[ind, :] = hkAARealPart[:, matrixElementsHkA[ind, 0], matrixElementsHkA[ind, 1]] + 1j * hkAAImagPart[:, matrixElementsHkA[ind, 0], matrixElementsHkA[ind, 1]]
-    hkExpCouplingData[ind, :] = hkExpCouplingRealPart[:, matrixElementsHkA[ind, 0], matrixElementsHkA[ind, 1]] + 1j * hkExpCouplingImagPart[:, matrixElementsHkA[ind, 0], matrixElementsHkA[ind, 1]]
-
-for ind in range(len(matrixElementsHk0)):
-    hk0Data[ind, :] = hk0RealPart[:, matrixElementsHk0[ind, 0], matrixElementsHk0[ind, 1]] + 1j * hk0ImagPart[:, matrixElementsHk0[ind, 0], matrixElementsHk0[ind, 1]]
-
-#hk0Data = hkExpCouplingData - hkAData - hkAAData - hk0Data
+exactCouplingData = hkExpData - hk0Data - hkAData - hkAAData
 
 fig, ax = plt.subplots(nrows=1, ncols=1)
 cmap1 = plt.cm.get_cmap('terrain')
 cmap2 = plt.cm.get_cmap('jet')
-for ind in range(len(matrixElementsHkA)):
-    ax.plot(hk0Data[ind, :].real, color='mediumseagreen')
-for ind in range(len(matrixElementsHkA)):
-    ax.plot(hkAAData[ind, :].real, color='orange', linestyle = '--')
+color = cmap1(0.)
+colors = [0.0, 0.15, 0.3, 0.55, 0.85]
+#colors = [1.0, 1.0, 0.3, 1.0, 1.0]
+for ind in range(desiredNumberOfBands):
+    color = cmap1(colors[ind // 4])
+
+    ax.plot(np.arange(len(kPoints)), hk0Data[:, ind, ind].real, color=color)
+    ax.plot(np.arange(len(kPoints)), hkAData[:, ind, ind].real, color=color, linestyle = '--')
+
+#for ind in range(4):
+#    band = 8
+#    ax.plot(np.arange(len(kPoints)), hkAData[:, ind + 8, band].real, color='black', linestyle = '-', linewidth = 2)
+#    ax.plot(np.arange(len(kPoints)), hkAData[:, ind + 8, band + 4].real, color='gray', linestyle = '-', linewidth = 2)
+#    ax.plot(np.arange(len(kPoints)), hkAData[:, ind + 8, band + 8].real, color='lightgray', linestyle = '-', linewidth = 2)
+
+#for ind in range(desiredNumberOfBands):
+#    ax.plot(hkAAData[:, ind, ind].real, color='dodgerblue', linestyle = '--')
+#for ind in range(desiredNumberOfBands):
+#    ax.plot(exactCouplingData[:, ind, ind].real, color='indianred', linestyle = '--')
+
+ax.xaxis.set_ticks = [0, 1]
+ax.xaxis.set_labels = ['0', '1']
 
 plt.show()
 

@@ -2,7 +2,6 @@
 #include <string>
 #include <complex>
 #include <cassert>
-#include <iostream>
 
 #include "FileHandling.h"
 #include "OutputUtilities.h"

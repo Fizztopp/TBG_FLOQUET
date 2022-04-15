@@ -11,70 +11,70 @@
 				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install/strip">
 				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 install/strip"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install/local">
 				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 install/local"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install">
 				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 install"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="list_install_components">
 				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 list_install_components"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="test">
 				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 test"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="TBG.out">
@@ -87,12 +87,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/./include"/>
 					<Add directory="/usr/include/hdf5/serial"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 TBG.out"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 TBG.out"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="TBG.out/fast">
@@ -105,22 +131,48 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/./include"/>
 					<Add directory="/usr/include/hdf5/serial"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 TBG.out/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 TBG.out/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="/home/chris/academics/PhD/codebase/TBG_FLOQUET"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="runAllTests.out">
@@ -138,12 +190,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/../include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 runAllTests.out"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 runAllTests.out"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="runAllTests.out/fast">
@@ -161,12 +239,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/../include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 runAllTests.out/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 runAllTests.out/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock_main">
@@ -182,12 +286,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 gmock_main"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 gmock_main"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock_main/fast">
@@ -203,12 +333,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 gmock_main/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 gmock_main/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock">
@@ -224,12 +380,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 gmock"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 gmock"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock/fast">
@@ -245,12 +427,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 gmock/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 gmock/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtest">
@@ -264,12 +472,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/./include"/>
 					<Add directory="/usr/include/hdf5/serial"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 gtest"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 gtest"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtest/fast">
@@ -283,12 +517,38 @@
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/./include"/>
 					<Add directory="/usr/include/hdf5/serial"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 gtest/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 gtest/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtest_main">
@@ -302,12 +562,38 @@
 					<Add directory="/usr/include/hdf5/serial"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 gtest_main"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 gtest_main"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtest_main/fast">
@@ -321,12 +607,38 @@
 					<Add directory="/usr/include/hdf5/serial"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest"/>
 					<Add directory="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/vpl/2021.4.0/include"/>
+					<Add directory="/opt/intel/oneapi/tbb/2021.3.0/env/../include"/>
+					<Add directory="/opt/intel/oneapi/mpi/2021.3.0//include"/>
+					<Add directory="/opt/intel/oneapi/mkl/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ipp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/ippcp/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dpl/2021.4.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/dpcpp-ct/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dnnl/2021.3.0/cpu_dpcpp_gpu_dpcpp/lib"/>
+					<Add directory="/opt/intel/oneapi/dev-utilities/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/dal/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/include"/>
+					<Add directory="/opt/intel/oneapi/ccl/2021.3.0/include/cpu_gpu_dpcpp"/>
+					<Add directory="/opt/intel/oneapi/clck/2021.3.0/include"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/intel64"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include/icc"/>
+					<Add directory="/opt/intel/oneapi/compiler/2021.3.0/linux/bin/intel64/../../compiler/include"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/include/"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 gtest_main/fast"/>
-					<CompileFile command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 gtest_main/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/googletest/googletest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
@@ -401,16 +713,10 @@
 		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/src/TBG.cpp">
 			<Option target="TBG.out"/>
 		</Unit>
-		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/DiagonalizationTest.cpp">
-			<Option target="runAllTests.out"/>
-		</Unit>
 		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/FileHandlingTest.cpp">
 			<Option target="runAllTests.out"/>
 		</Unit>
 		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/LinATest.cpp">
-			<Option target="runAllTests.out"/>
-		</Unit>
-		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/NoChangeTest.cpp">
 			<Option target="runAllTests.out"/>
 		</Unit>
 		<Unit filename="/home/chris/academics/PhD/codebase/TBG_FLOQUET/test/OutputUtilitiesTest.cpp">
